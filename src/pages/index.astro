@@ -1,0 +1,165 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import AnimeSticker from "../components/AnimeSticker.astro";
+import { profile, skills, interests } from "../data/profile";
+import { growthNodes } from "../data/growth";
+import { projects } from "../data/projects";
+import { getCollection } from "astro:content";
+
+const articles = (await getCollection("articles")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const featuredArticles = articles.filter((article) => article.data.featured).slice(0, 2);
+---
+
+<BaseLayout title="个人成长博客" description="中文为主的个人成长博客，清爽克制，带一点日系和轻量 RPG 档案感。">
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">Visual Novel Archive · {profile.handle}</div>
+      <h1>{profile.displayName}</h1>
+      <p>{profile.shortIntro}</p>
+      <p>这里不是一份平铺直叙的简历，而是一份会随着时间更新的成长存档：每个阶段、项目和文章，都是一个可以回看的 checkpoint。</p>
+      <div class="chips">
+        {profile.currentFocus.map((item) => <span class="chip">{item}</span>)}
+      </div>
+      <div class="chips">
+        <button class="button-link load-save-button" type="button" data-load-save>读取成长存档</button>
+        <a class="ghost-link" href="/projects/">查看记录档案</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="/assets/character-archive.svg" alt="动漫风格的个人成长档案插图" />
+      <div class="panel">
+        <div class="muted">Status Window</div>
+        <h3>{profile.status}</h3>
+        <p class="meta">这是一个先搭好容器、后慢慢填内容的网站。文章、项目和成长节点都会保留结构化入口。</p>
+      </div>
+      <AnimeSticker label="Save Fairy" compact />
+    </div>
+  </section>
+
+  <div class="save-loader" data-save-loader aria-hidden="true">
+    <div class="loader-window">
+      <div class="loader-title">NOW LOADING SAVE FILE</div>
+      <div class="loader-line">
+        <span></span>
+      </div>
+      <div class="loader-meta">Chapter 02 · Growth Route · Checkpoint Sync</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <SectionHeading title="存档槽" subtitle="用轻量游戏化结构记录不同层次的自己。" />
+    <div class="save-slots">
+      <div class="save-slot">
+        <strong>Slot 01 · 当前章节</strong>
+        <span class="small">{profile.currentChapter}</span>
+      </div>
+      <div class="save-slot">
+        <strong>Slot 02 · 成长路线</strong>
+        <span class="small">阶段、转折、项目和复盘会被连接起来。</span>
+      </div>
+      <div class="save-slot">
+        <strong>Slot 03 · 低调展示</strong>
+        <span class="small">求职信息存在，但不会压过个人叙事。</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <SectionHeading title="成长路线" subtitle="像章节地图一样，把变化讲清楚。" />
+    <div class="timeline">
+      {growthNodes.slice(0, 3).map((node) => (
+        <article class="timeline-item">
+          <div class="timeline-head">
+            <div>
+              <div class="chips">
+                <span class="chip">{node.chapter}</span>
+                <span class="chip">{node.timeRange}</span>
+              </div>
+              <h3>{node.title}</h3>
+            </div>
+            <span class="small">{node.keywords.join(" · ")}</span>
+          </div>
+          <p class="meta">{node.summary}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <SectionHeading title="精选项目" subtitle="项目是成长的证据，不是单纯的展示墙。" />
+    <div class="grid projects">
+      {projects.filter((project) => project.featured).map((project) => (
+        <article class="card">
+          <div class="chips">
+            {project.techStack.map((tech) => <span class="chip">{tech}</span>)}
+          </div>
+          <h3>{project.title}</h3>
+          <p class="meta">{project.description}</p>
+          <p class="small">{project.reflection}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <h2>最近文章</h2>
+        <div class="muted">先放占位文章，后续再换成真实内容。</div>
+      </div>
+      <a class="ghost-link" href="/articles/">进入文章列表 →</a>
+    </div>
+    <div class="grid articles">
+      {featuredArticles.map((article) => (
+        <article class="article-card">
+          <div class="chips">
+            <span class="chip">{article.data.category}</span>
+            <span class="chip">{article.data.readingTime}</span>
+          </div>
+          <h3>{article.data.title}</h3>
+          <p class="meta">{article.data.description}</p>
+          <a class="ghost-link" href={`/articles/${article.slug}/`}>阅读全文 →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <SectionHeading title="Skill Tree" subtitle="能力树和兴趣的轻量档案。" />
+    <div class="grid two">
+      <div class="panel stack">
+        {skills.map((skill) => (
+          <div class="skill-row">
+            <div class="timeline-head">
+              <strong>{skill.name}</strong>
+              <span class="small">{skill.level}%</span>
+            </div>
+            <div class="meter" aria-hidden="true"><span style={`width: ${skill.level}%`}></span></div>
+            <span class="small">{skill.note}</span>
+          </div>
+        ))}
+      </div>
+      <div class="panel">
+        <div class="muted">兴趣</div>
+        <div class="chips" style="margin-top: 12px;">
+          {interests.map((item) => <span class="chip">{item}</span>)}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const loadButton = document.querySelector("[data-load-save]");
+  const loader = document.querySelector("[data-save-loader]");
+
+  loadButton?.addEventListener("click", () => {
+    loader?.classList.add("is-active");
+    window.setTimeout(() => {
+      window.location.href = "/growth/";
+    }, 1150);
+  });
+</script>

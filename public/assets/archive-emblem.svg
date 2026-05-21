@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" role="img" aria-labelledby="title desc">
+  <title id="title">Growth route emblem</title>
+  <desc id="desc">A soft archive emblem with route nodes and a notebook shape.</desc>
+  <rect width="480" height="320" rx="32" fill="#edf7f7"/>
+  <path d="M110 72h196c30 0 54 24 54 54v122H164c-30 0-54-24-54-54V72Z" fill="#ffffff" stroke="#7bb7bd" stroke-width="4"/>
+  <path d="M156 116h148M156 154h104M156 192h128" stroke="#52616b" stroke-width="10" stroke-linecap="round"/>
+  <path d="M104 238c52-66 105-76 158-34 38 30 75 31 114-2" fill="none" stroke="#d88da6" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="104" cy="238" r="14" fill="#456990"/>
+  <circle cx="262" cy="204" r="14" fill="#7bb7bd"/>
+  <circle cx="376" cy="202" r="14" fill="#d88da6"/>
+  <path d="M360 88l16 30 34 6-24 24 4 34-30-15-31 15 6-34-25-24 34-6 16-30Z" fill="#f4d35e" opacity=".85"/>
+</svg>

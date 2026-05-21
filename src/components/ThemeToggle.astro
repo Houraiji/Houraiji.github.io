@@ -1,0 +1,24 @@
+<button class="theme-toggle" type="button" data-theme-toggle aria-label="切换深浅色主题">
+  <span aria-hidden="true">☀︎</span>
+  <span aria-hidden="true">/</span>
+  <span aria-hidden="true">☾</span>
+</button>
+
+<script is:inline>
+  const root = document.documentElement;
+  const key = "growth-blog-theme";
+  const saved = localStorage.getItem(key);
+  if (saved === "dark" || saved === "light") {
+    root.dataset.theme = saved;
+  } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    root.dataset.theme = "dark";
+  }
+
+  const toggle = () => {
+    const next = root.dataset.theme === "dark" ? "light" : "dark";
+    root.dataset.theme = next;
+    localStorage.setItem(key, next);
+  };
+
+  document.querySelector("[data-theme-toggle]")?.addEventListener("click", toggle);
+</script>

@@ -1,0 +1,19 @@
+---
+const { article, href } = Astro.props;
+---
+
+<article class="article-card">
+  <div class="stack">
+    <div class="chips">
+      <span class="chip">{article.data.category}</span>
+      <span class="chip">{article.data.readingTime}</span>
+      {article.data.featured && <span class="chip">精选</span>}
+    </div>
+    <h3>{article.data.title}</h3>
+    <p class="meta">{article.data.description}</p>
+  </div>
+  <div class="footer">
+    <span class="small">{article.data.date.toLocaleDateString("zh-CN")}</span>
+    <a class="ghost-link" href={href}>阅读全文 →</a>
+  </div>
+</article>

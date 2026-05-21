@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.astro/
+.codex/
+.env
+.env.*
+!.env.example
+astro-dev.*.log
+.edge-profile/
+.edge-profile-*/
+.edge-shot/
+output/imagegen/
+tmp/

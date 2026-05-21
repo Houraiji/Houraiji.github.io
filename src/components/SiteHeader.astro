@@ -1,0 +1,26 @@
+---
+import ThemeToggle from "./ThemeToggle.astro";
+
+const navItems = [
+  ["首页", "/"],
+  ["成长线", "/growth/"],
+  ["项目", "/projects/"],
+  ["文章", "/articles/"],
+  ["关于", "/about/"],
+];
+---
+
+<header class="site-header">
+  <div class="site-shell header-inner">
+    <div class="brand">
+      <strong>个人成长博客</strong>
+      <span>中文为主 · 清爽 · 稍带档案感</span>
+    </div>
+    <nav class="nav" aria-label="主导航">
+      {navItems.map(([label, href]) => (
+        <a href={href} aria-current={Astro.url.pathname === href ? "page" : undefined}>{label}</a>
+      ))}
+    </nav>
+    <ThemeToggle />
+  </div>
+</header>

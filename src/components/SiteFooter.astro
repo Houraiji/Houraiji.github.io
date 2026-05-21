@@ -1,0 +1,17 @@
+---
+import { profile } from "../data/profile";
+---
+
+<footer class="site-footer">
+  <div class="site-shell footer-inner">
+    <div class="brand">
+      <strong>{profile.displayName}</strong>
+      <span>{profile.status}</span>
+    </div>
+    <div class="links" aria-label="联系链接">
+      {profile.quietLinks.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </div>
+  </div>
+</footer>

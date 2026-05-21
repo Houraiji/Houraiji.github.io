@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("articles");
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await article.render();
+---
+
+<BaseLayout title={`${article.data.title} · 文章`} description={article.data.description}>
+  <article class="article">
+    <div class="chips">
+      <span class="chip">{article.data.category}</span>
+      <span class="chip">{article.data.readingTime}</span>
+      {article.data.featured && <span class="chip">精选</span>}
+    </div>
+    <h1>{article.data.title}</h1>
+    <p class="meta">{article.data.description}</p>
+    <p class="small">{article.data.date.toLocaleDateString("zh-CN")} · {article.data.tags.join(" · ")}</p>
+
+    <div class="article-content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

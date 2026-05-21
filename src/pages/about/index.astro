@@ -1,0 +1,72 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import { profile, skills, interests } from "../../data/profile";
+---
+
+<BaseLayout title="关于" description="个人资料、能力树、兴趣和低调联系方式。">
+  <section class="article">
+    <div class="eyebrow">Character File · 关于我</div>
+    <h1>{profile.displayName}</h1>
+    <p class="meta">{profile.shortIntro}</p>
+  </section>
+
+  <section class="section character-card">
+    <div class="character-portrait">
+      <img src="/assets/character-archive.svg" alt="个人角色档案插图" />
+      <div class="portrait-caption">ARCHIVE ID · {profile.handle}</div>
+    </div>
+    <div class="character-info">
+      <SectionHeading title="Profile Card" subtitle="保留一点角色档案感，但不喧宾夺主。" />
+      <div class="profile-grid">
+        <div class="profile-field">
+          <span>姓名</span>
+          <strong>{profile.displayName}</strong>
+        </div>
+        <div class="profile-field">
+          <span>状态</span>
+          <strong>{profile.status}</strong>
+        </div>
+        <div class="profile-field wide">
+          <span>当前章节</span>
+          <strong>{profile.currentChapter}</strong>
+        </div>
+        <div class="profile-field wide">
+          <span>当前关注</span>
+          <div class="chips">
+            {profile.currentFocus.map((item) => <span class="chip">{item}</span>)}
+          </div>
+        </div>
+        <div class="profile-field wide">
+          <span>联系</span>
+          <div class="links">
+            {profile.quietLinks.map((link) => <a class="ghost-link" href={link.href}>{link.label}</a>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <SectionHeading title="Skill Tree" subtitle="能力树不是等级炫耀，而是观察自己如何成长。" />
+    <div class="panel stack">
+      {skills.map((skill) => (
+        <div class="skill-row">
+          <div class="timeline-head">
+            <strong>{skill.name}</strong>
+            <span class="small">{skill.level}%</span>
+          </div>
+          <div class="meter"><span style={`width: ${skill.level}%`}></span></div>
+          <span class="small">{skill.note}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <SectionHeading title="Interests" subtitle="把喜欢的东西保留在结构里。" />
+    <div class="chips">
+      {interests.map((item) => <span class="chip">{item}</span>)}
+    </div>
+  </section>
+</BaseLayout>

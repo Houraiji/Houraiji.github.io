@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import { projects } from "../../data/projects";
+---
+
+<BaseLayout title="项目" description="项目档案页面，记录成长中的作品与复盘。">
+  <section class="article">
+    <div class="eyebrow">Archive Records · 项目档案</div>
+    <h1>记录档案</h1>
+    <p class="meta">项目不是战绩墙，而是成长线上的证据：做了什么、承担什么、后来理解了什么。</p>
+  </section>
+
+  <section class="section">
+    <SectionHeading title="Record Files" subtitle="像打开档案一样查看每个项目。" />
+    <div class="grid projects">
+      {projects.map((project) => (
+        <article class="card">
+          <div class="chips">
+            {project.techStack.map((tech) => <span class="chip">{tech}</span>)}
+          </div>
+          <h3>{project.title}</h3>
+          <p class="meta">{project.description}</p>
+          <p class="small">{project.role}</p>
+          <p class="small">{project.reflection}</p>
+          {project.links.length > 0 && (
+            <div class="links">
+              {project.links.map((link) => <a class="ghost-link" href={link.href}>{link.label}</a>)}
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,22 @@
+export const profile = {
+  displayName: "你的名字",
+  handle: "Save File 02",
+  shortIntro: "一个把学习、项目和思考整理成成长存档的人。",
+  currentChapter: "Chapter 02: 正在建立自己的技术与表达系统",
+  currentFocus: ["前端工程", "长期写作", "项目复盘", "成长存档"],
+  status: "当前存档：持续记录，慢慢成型",
+  quietLinks: [
+    { label: "GitHub", href: "https://github.com/" },
+    { label: "Email", href: "mailto:hello@example.com" },
+    { label: "Resume", href: "#" },
+  ],
+};
+
+export const skills = [
+  { name: "前端基础", level: 72, note: "页面结构、组件拆分、交互细节" },
+  { name: "工程习惯", level: 58, note: "版本管理、任务拆解、复盘意识" },
+  { name: "表达记录", level: 64, note: "把过程写清楚，把变化留下来" },
+  { name: "产品感知", level: 46, note: "从功能走向体验和长期维护" },
+];
+
+export const interests = ["游戏", "动漫", "技术创作", "个人知识库", "安静但持续的成长"];

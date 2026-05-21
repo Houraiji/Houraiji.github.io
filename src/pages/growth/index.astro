@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import AnimeSticker from "../../components/AnimeSticker.astro";
+import { growthNodes } from "../../data/growth";
+---
+
+<BaseLayout title="成长线" description="按章节和节点记录的个人成长路线。">
+  <section class="article">
+    <div class="eyebrow">Route Map · Checkpoints</div>
+    <h1>成长路线图</h1>
+    <p class="meta">把真实经历整理成章节和 checkpoint：不是流水账，而是记录每次改变发生在哪里。</p>
+  </section>
+
+  <section class="section">
+    <SectionHeading title="Checkpoint Log" subtitle="后续每个节点都可以展开成故事、项目和复盘。" />
+    <AnimeSticker label="Route Navigator" compact />
+    <div class="route-map">
+      {growthNodes.map((node, index) => (
+        <article class={`route-node node-${index + 1}`}>
+          <div class="route-marker">
+            <span>{String(index + 1).padStart(2, "0")}</span>
+          </div>
+          <div class="timeline-head">
+            <div>
+              <div class="chips">
+                <span class="chip">{node.chapter}</span>
+                <span class="chip">{node.timeRange}</span>
+              </div>
+              <h3>{node.title}</h3>
+            </div>
+            <span class="small">{node.keywords.join(" · ")}</span>
+          </div>
+          <p class="meta">{node.summary}</p>
+          <p class="small">{node.details}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

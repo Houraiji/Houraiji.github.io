@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import AnimeSticker from "../../components/AnimeSticker.astro";
+import { getCollection } from "astro:content";
+
+const articles = (await getCollection("articles")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const categories = ["全部", ...new Set(articles.map((article) => article.data.category))];
+---
+
+<BaseLayout title="文章" description="文章列表与章节化的成长札记。">
+  <section class="article">
+    <div class="eyebrow">Notes Library · 文章札记</div>
+    <h1>札记图书馆</h1>
+    <p class="meta">文章会承载更细的思考、复盘和阶段记录。现在先用占位内容验证阅读体验。</p>
+  </section>
+
+  <section class="section">
+    <SectionHeading title="分类" subtitle="轻量分类，先服务阅读和未来扩展。" />
+    <div class="library-tabs">
+      {categories.map((category) => <span>{category}</span>)}
+    </div>
+  </section>
+
+  <section class="section">
+    <SectionHeading title="文章列表" subtitle="文章详情页已连通。" />
+    <AnimeSticker label="Library Keeper" compact />
+    <div class="library-shelf">
+      {articles.map((article) => (
+        <div class="book-card">
+          <ArticleCard article={article} href={`/articles/${article.slug}/`} />
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

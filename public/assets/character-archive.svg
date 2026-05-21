@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 880" role="img" aria-labelledby="title desc">
+  <title id="title">Anime inspired archive portrait</title>
+  <desc id="desc">A calm anime-inspired profile card with a character silhouette and archive UI shapes.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f9fdff"/>
+      <stop offset=".48" stop-color="#eaf6f5"/>
+      <stop offset="1" stop-color="#f8eaf1"/>
+    </linearGradient>
+    <linearGradient id="hair" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#263848"/>
+      <stop offset="1" stop-color="#4d6e83"/>
+    </linearGradient>
+    <linearGradient id="coat" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#6aaeb8"/>
+      <stop offset="1" stop-color="#557ea5"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="880" rx="48" fill="url(#bg)"/>
+  <path d="M88 104h544v110H88z" fill="#fff" opacity=".78"/>
+  <path d="M122 146h222M122 178h154M456 146h92M456 178h132" stroke="#6d8794" stroke-width="12" stroke-linecap="round" opacity=".65"/>
+  <circle cx="576" cy="160" r="30" fill="#e89eb5" opacity=".9"/>
+  <circle cx="504" cy="160" r="18" fill="#8dcbd0" opacity=".9"/>
+  <path d="M202 342c22-138 113-178 170-178 82 0 156 62 169 178 14 123-52 223-170 223S183 460 202 342Z" fill="url(#hair)"/>
+  <path d="M232 395c-26 10-34 53-15 80 18 26 50 22 60-6M508 395c26 10 34 53 15 80-18 26-50 22-60-6" fill="#f2c7bc"/>
+  <path d="M262 331c19-80 63-121 107-121 61 0 111 57 111 130 0 88-49 158-110 158S250 422 262 331Z" fill="#f6d1c7"/>
+  <path d="M247 356c55-6 101-32 136-80 25 45 66 73 108 82-15-99-63-150-121-150-61 0-106 50-123 148Z" fill="url(#hair)"/>
+  <path d="M308 378c12-9 30-9 42 0M400 378c13-9 30-9 42 0" stroke="#263848" stroke-width="8" stroke-linecap="round"/>
+  <path d="M348 438c18 12 39 12 58 0" stroke="#b9747d" stroke-width="7" stroke-linecap="round"/>
+  <path d="M198 728c18-132 79-201 172-201 94 0 154 69 172 201H198Z" fill="url(#coat)"/>
+  <path d="M318 532l52 84 54-84" fill="#fff" opacity=".84"/>
+  <path d="M202 728h336v58H202z" fill="#22313d" opacity=".8"/>
+  <path d="M110 706h84v84h-84zM526 706h84v84h-84z" fill="#ffffff" opacity=".72"/>
+  <path d="M128 748h48M544 748h48" stroke="#557ea5" stroke-width="10" stroke-linecap="round"/>
+  <path d="M88 812h544" stroke="#6aaeb8" stroke-width="8" stroke-linecap="round" opacity=".75"/>
+  <path d="M102 254c38-28 78-32 120-13M512 258c38-20 72-17 106 10" stroke="#d894aa" stroke-width="8" stroke-linecap="round" opacity=".68"/>
+</svg>
