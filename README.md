@@ -1,30 +1,94 @@
 # Houraiji Blog
 
-一个中文为主的个人成长博客，用来记录真实的成长线，也可以作为低调的个人展示站点。
+一个中文为主的个人成长博客，用来记录真实的成长线，也可以作为低调、克制、带一点个人风格的展示站点。
 
-当前版本是一个 Astro 静态站点骨架，风格方向是“成长存档 / Visual Novel Archive”：干净克制的个人网站里加入轻量动漫、RPG 档案、存档槽、成长路线和札记书架等元素。
+当前版本的视觉方向是“成长存档 / Visual Novel Archive”：在简洁的个人网站骨架里，融入轻量的游戏、动漫、档案室、图书馆和角色资料卡元素。
 
-## 功能
+## 当前页面
 
-- 首页：展示“我是谁 + 我正在成长”，带读取存档过场动效
-- 成长线：以 checkpoint route map 的方式展示阶段节点
-- 项目：以记录档案形式展示项目经历
-- 文章：Markdown 内容驱动的文章列表和详情页
-- 关于：角色资料卡、当前章节、能力树、兴趣和联系方式
-- 主题：支持浅色 / 深色切换，并在本地保存偏好
-- 内容结构：文章、成长节点、项目、个人状态都与页面组件分离，方便后续接 CMS
+目前网站已经完成的主要页面如下：
+
+| 页面 | 路由 | 当前呈现 |
+| --- | --- | --- |
+| 首页 | `/` | 读取存档过场、成长存档入口、精选项目、最近文章、技能树和兴趣概览 |
+| 成长线 | `/growth/` | 路线图式 checkpoint 视图，按章节展示成长节点 |
+| 项目 | `/projects/` | 档案卡片式项目展示，强调角色、技术栈和复盘 |
+| 文章 | `/articles/` | 图书馆书架风格的文章列表，支持 Markdown 详情页 |
+| 关于 | `/about/` | 角色资料卡、当前章节、技能树、兴趣和联系方式 |
+| 本地后台 | `/admin/index.html` | 本地专用内容管理台，可直接编辑 JSON 和 Markdown |
+
+## 页面风格概览
+
+### 首页
+
+- 以“读取成长存档”为主叙事入口
+- 带动漫助手立绘、状态窗口、存档槽和表情贴纸
+- 点击按钮会进入成长线页面，形成轻量过场感
+
+### 成长线
+
+- 使用路线图而不是普通时间线列表
+- 每个节点保留章节、时间范围、关键词和详细说明
+- 页面里加入导航贴纸和轻量 RPG 档案感
+
+### 项目页
+
+- 不是传统作品墙，而是“记录档案”
+- 每个项目卡片会同时展示描述、承担角色、技术栈和复盘
+- 视觉上偏资料卡和文件夹展开的感觉
+
+### 文章页
+
+- 文章列表做成“札记图书馆 / 书架”风格
+- 支持文章分类、文章卡片和 Markdown 详情页
+- 更适合放长期写作、阶段复盘和学习记录
+
+### 关于页
+
+- 用“角色资料卡”的形式展示个人信息
+- 左侧是立绘，右侧是状态、当前章节、当前关注和联系方式
+- 下方保留技能树和兴趣区域，整体更像角色档案页
+
+### 本地后台
+
+- 不走线上登录流程
+- 面向当前项目本地使用
+- 可以直接编辑：
+  - `src/data/profile.json`
+  - `src/data/growth.json`
+  - `src/data/projects.json`
+  - `src/content/articles/*.md`
+
+## 当前特性
+
+- 中文为主的个人成长博客结构
+- 带一点动漫和游戏气质，但整体保持低调克制
+- 首页“读取存档”过场动效
+- 各页面档案卡 / 书籍归位感入场动效
+- 左右页面切换箭头
+- 深浅主题切换
+- Markdown 文章系统
+- JSON 数据化内容结构
+- 本地专用内容管理页
 
 ## 技术栈
 
 - [Astro](https://astro.build/)
 - TypeScript
 - Markdown Content Collections
-- CSS animations
+- 原生 CSS 动效
 
 ## 本地运行
 
+安装依赖：
+
 ```bash
 npm install
+```
+
+启动前台开发服务器：
+
+```bash
 npm run dev
 ```
 
@@ -34,117 +98,93 @@ npm run dev
 http://127.0.0.1:4321/
 ```
 
+## 本地内容管理
+
+当前项目提供一个本地专用后台，不需要账号密码登录。
+
+启动本地管理服务：
+
+```bash
+npm run admin:local
+```
+
+然后打开：
+
+```text
+http://127.0.0.1:4321/admin/index.html
+```
+
+这个本地后台可以直接编辑：
+
+- 个人资料、技能树、兴趣
+- 成长路线节点
+- 项目档案
+- Markdown 文章内容
+
 ## 常用命令
 
 ```bash
-npm run dev      # 启动开发服务器
-npm run check    # Astro 类型和内容检查
-npm run build    # 构建静态站点
-npm run preview  # 预览构建结果
+npm run dev          # 启动 Astro 开发服务器
+npm run check        # 类型和内容检查
+npm run build        # 构建静态站点
+npm run preview      # 预览构建结果
+npm run admin:local  # 启动本地管理服务
 ```
 
 ## 目录结构
 
 ```text
 src/
-├─ components/          # Header、Footer、文章卡片、主题切换等组件
+├─ components/          # 页面组件、页头页脚、贴纸、页面箭头等
 ├─ content/
 │  └─ articles/         # Markdown 文章
-├─ data/                # 个人资料、成长节点、项目数据
+├─ data/                # profile / growth / projects 的 JSON 数据
 ├─ layouts/             # 全站布局
-├─ pages/               # 首页、成长线、项目、文章、关于等页面
+├─ pages/               # 首页、成长线、项目、文章、关于
 └─ styles/              # 全局样式和动效
 
 public/
-└─ assets/              # SVG 插图和站点视觉资产
+├─ admin/               # 本地管理页静态资源
+└─ assets/              # 站点视觉资产、生成图片、贴纸
 
-openspec/
-└─ changes/create-growth-blog/
-   ├─ proposal.md
-   ├─ design.md
-   ├─ tasks.md
-   └─ specs/
+scripts/
+└─ local-admin-server.mjs
 ```
 
-## 内容替换
+## 内容文件位置
 
-文章内容放在：
+文章内容：
 
 ```text
 src/content/articles/
 ```
 
-成长线节点放在：
-
-```text
-src/data/growth.json
-```
-
-项目记录放在：
-
-```text
-src/data/projects.json
-```
-
-个人资料、当前章节、联系方式和能力树放在：
+个人资料、技能树、兴趣：
 
 ```text
 src/data/profile.json
 ```
 
-## 后台编辑
-
-项目已经接入了一个轻量 CMS 入口：
+成长路线：
 
 ```text
-/admin/index.html
+src/data/growth.json
 ```
 
-本地使用方式：
-
-```bash
-npm run dev
-npm run cms
-```
-
-然后访问：
+项目档案：
 
 ```text
-http://127.0.0.1:4321/admin/index.html
+src/data/projects.json
 ```
-
-当前可编辑内容：
-
-- `src/content/articles/` 里的 Markdown 文章
-- `src/data/profile.json` 里的个人资料、技能树、兴趣
-- `src/data/growth.json` 里的成长路线节点
-- `src/data/projects.json` 里的项目档案
-
-说明：
-
-- 本地编辑依赖 Decap 的 local backend 代理。
-- 当前仓库已经预留 GitHub 仓库配置，适合继续往线上 CMS 方向扩展。
-- 如果以后要在部署后直接网页登录管理，还需要补一个 GitHub OAuth / auth bridge，这一步我可以下一轮继续帮你接。
-
-## 环境变量
-
-如果后续需要调用图片生成或其他 API，可以创建本地环境文件：
-
-```text
-.env.local
-```
-
-示例见：
-
-```text
-.env.example
-```
-
-不要提交真实密钥。`.env` 和 `.env.*` 已经在 `.gitignore` 中忽略。
 
 ## 部署
 
-这是静态 Astro 项目，可以部署到 Vercel、Netlify、Cloudflare Pages 或 GitHub Pages。
+这是一个静态 Astro 项目，可以部署到：
+
+- Vercel
+- Netlify
+- Cloudflare Pages
+- GitHub Pages
 
 构建命令：
 
@@ -152,16 +192,16 @@ http://127.0.0.1:4321/admin/index.html
 npm run build
 ```
 
-构建输出目录：
+构建产物目录：
 
 ```text
 dist/
 ```
 
-## 后续计划
+## 后续可以继续做的事
 
-- 替换真实成长内容
-- 增加更多原创动漫风格视觉资产
-- 接入轻量 CMS 管理文章、项目和成长节点
-- 丰富文章分类、标签和归档页面
-- 完善移动端细节和视觉动效
+- 替换成真实的成长内容和项目经历
+- 给 README 补充页面截图
+- 增加文章归档、标签页、搜索
+- 继续扩展本地后台的表单化编辑体验
+- 如果需要，再接线上可登录的内容管理能力
