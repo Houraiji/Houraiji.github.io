@@ -212,6 +212,20 @@ img {
   min-height: calc(100vh - 132px);
   align-items: center;
   padding: 18px 0 40px;
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(50% - 50vw);
+  z-index: -1;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--bg) 90%, transparent), color-mix(in srgb, var(--bg) 52%, transparent)),
+    linear-gradient(0deg, var(--bg), transparent 18%, transparent 78%, var(--bg)),
+    url("/assets/generated/hero-archive-bg.png") center right / cover no-repeat;
+  opacity: 0.72;
+  mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 86%, transparent);
 }
 
 .hero-copy {
@@ -299,6 +313,20 @@ img {
   animation: softFloat 5.2s ease-in-out infinite;
 }
 
+.hero-art .hero-character {
+  width: min(420px, 100%);
+  justify-self: center;
+  max-height: 620px;
+  object-fit: cover;
+  object-position: top center;
+  border: 0;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--bg-elevated) 35%, transparent);
+  box-shadow:
+    0 30px 80px rgba(32, 56, 74, 0.2),
+    0 0 46px color-mix(in srgb, var(--accent-2) 24%, transparent);
+}
+
 .panel,
 .card,
 .timeline-item,
@@ -341,6 +369,38 @@ img {
 .save-slot strong {
   display: block;
   margin-bottom: 4px;
+}
+
+.sticker-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+.sticker-strip img {
+  width: clamp(92px, 13vw, 148px);
+  aspect-ratio: 1;
+  object-fit: contain;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--bg-elevated) 72%, transparent);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  animation: stickerPop 560ms ease both, softFloat 5.8s ease-in-out infinite;
+}
+
+.sticker-strip img:nth-child(2) {
+  animation-delay: 100ms;
+}
+
+.sticker-strip img:nth-child(3) {
+  animation-delay: 200ms;
+}
+
+.sticker-strip img:hover {
+  transform: translateY(-8px) rotate(3deg) scale(1.04);
+  box-shadow: var(--shadow), 0 0 30px color-mix(in srgb, var(--accent-2) 24%, transparent);
 }
 
 .section {
@@ -563,6 +623,10 @@ img {
 .anime-sticker-card img {
   width: 72px;
   height: 72px;
+  object-fit: contain;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
   animation: winkBounce 3.8s ease-in-out infinite;
 }
 
@@ -889,6 +953,10 @@ img {
 
 .character-portrait img {
   border-radius: 6px;
+  max-height: 620px;
+  width: 100%;
+  object-fit: cover;
+  object-position: top center;
   animation: softFloat 5.6s ease-in-out infinite;
 }
 

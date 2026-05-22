@@ -29,13 +29,13 @@ const featuredArticles = articles.filter((article) => article.data.featured).sli
       </div>
     </div>
     <div class="hero-art">
-      <img src="/assets/character-archive.svg" alt="动漫风格的个人成长档案插图" />
+      <img class="hero-character" src="/assets/generated/anime-archive-assistant.png" alt="动漫风格的个人成长档案助手" />
       <div class="panel">
         <div class="muted">Status Window</div>
         <h3>{profile.status}</h3>
         <p class="meta">这是一个先搭好容器、后慢慢填内容的网站。文章、项目和成长节点都会保留结构化入口。</p>
       </div>
-      <AnimeSticker label="Save Fairy" compact />
+      <AnimeSticker label="Save Fairy" src="/assets/generated/chibi-angel.png" compact />
     </div>
   </section>
 
@@ -64,6 +64,15 @@ const featuredArticles = articles.filter((article) => article.data.featured).sli
         <strong>Slot 03 · 低调展示</strong>
         <span class="small">求职信息存在，但不会压过个人叙事。</span>
       </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <SectionHeading title="表情贴纸" subtitle="把动漫感放进页面的小情绪里。" />
+    <div class="sticker-strip">
+      <img src="/assets/generated/sticker-smile.png" alt="温柔浅笑贴纸" />
+      <img src="/assets/generated/sticker-stars.png" alt="惊喜星星眼贴纸" />
+      <img src="/assets/generated/sticker-question.png" alt="疑惑问号贴纸" />
     </div>
   </section>
 
