@@ -48,6 +48,88 @@ body {
   background-size: 42px 42px, 42px 42px, auto, auto, auto, auto;
   color: var(--text);
   overflow-x: hidden;
+  position: relative;
+}
+
+.background-illustration {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(247, 249, 252, 0.72), rgba(247, 249, 252, 0.28)),
+    linear-gradient(0deg, rgba(247, 249, 252, 0.38), rgba(247, 249, 252, 0.08)),
+    url("/assets/generated/hero-archive-bg.png") center center / cover no-repeat;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+}
+
+.book-return-cue {
+  position: fixed;
+  left: 50%;
+  bottom: 34px;
+  z-index: 35;
+  width: min(680px, calc(100% - 40px));
+  height: 120px;
+  pointer-events: none;
+  transform: translateX(-50%);
+  perspective: 900px;
+}
+
+.book-return-cue::after {
+  content: "";
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 42%, transparent), color-mix(in srgb, var(--accent-2) 36%, transparent), transparent);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.book-return-cue span {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  display: grid;
+  place-items: center;
+  width: 92px;
+  height: 78px;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--border));
+  border-left: 10px solid color-mix(in srgb, var(--accent-2) 68%, var(--text));
+  border-radius: 6px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.14), transparent 28%),
+    color-mix(in srgb, var(--bg-elevated) 90%, transparent);
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  box-shadow: var(--shadow);
+  transform: translate3d(var(--book-x), var(--book-y), 0) rotate(var(--book-r)) rotateY(18deg);
+  transition:
+    transform 1800ms cubic-bezier(0.19, 1, 0.22, 1),
+    opacity 420ms ease 1450ms;
+}
+
+.scatter-stage.scatter-settled .book-return-cue span {
+  opacity: 0;
+  transform: translate3d(calc((var(--book-x) / 6)), 0, 0) rotate(0deg) rotateY(0deg);
+}
+
+.scatter-stage.scatter-settled .book-return-cue::after {
+  opacity: 0;
+  transition: opacity 420ms ease 1450ms;
+}
+
+:root[data-theme="dark"] .background-illustration {
+  background:
+    linear-gradient(90deg, rgba(8, 17, 27, 0.82), rgba(8, 17, 27, 0.34)),
+    linear-gradient(0deg, rgba(8, 17, 27, 0.5), rgba(8, 17, 27, 0.18)),
+    url("/assets/generated/hero-archive-bg.png") center center / cover no-repeat;
+  opacity: 0.5;
+  mix-blend-mode: screen;
 }
 
 a {
@@ -67,11 +149,13 @@ img {
 .site-shell {
   width: min(1120px, calc(100% - 32px));
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .page-decor {
   position: fixed;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
   background:
@@ -142,6 +226,7 @@ img {
   border-radius: 8px;
   outline: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
   animation: slideDown 520ms ease both;
+  z-index: 2;
 }
 
 .header-inner,
@@ -213,19 +298,10 @@ img {
   align-items: center;
   padding: 18px 0 40px;
   position: relative;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0 calc(50% - 50vw);
-  z-index: -1;
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--bg) 90%, transparent), color-mix(in srgb, var(--bg) 52%, transparent)),
-    linear-gradient(0deg, var(--bg), transparent 18%, transparent 78%, var(--bg)),
-    url("/assets/generated/hero-archive-bg.png") center right / cover no-repeat;
-  opacity: 0.72;
-  mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 86%, transparent);
+  --scatter-x: -250px;
+  --scatter-y: 120px;
+  --scatter-rotate: -24deg;
+  --scatter-y-rotate: 18deg;
 }
 
 .hero-copy {
@@ -239,7 +315,10 @@ img {
     linear-gradient(135deg, color-mix(in srgb, var(--bg-elevated) 92%, transparent), color-mix(in srgb, var(--bg-soft) 72%, transparent));
   box-shadow: var(--shadow);
   overflow: hidden;
-  animation: riseIn 680ms ease both;
+  --scatter-x: -300px;
+  --scatter-y: 150px;
+  --scatter-rotate: -28deg;
+  --scatter-y-rotate: 22deg;
 }
 
 .hero-copy::before {
@@ -302,8 +381,10 @@ img {
   position: relative;
   display: grid;
   gap: 12px;
-  animation: riseIn 760ms ease both;
-  animation-delay: 80ms;
+  --scatter-x: 300px;
+  --scatter-y: -130px;
+  --scatter-rotate: 24deg;
+  --scatter-y-rotate: -20deg;
 }
 
 .hero-art img {
@@ -405,7 +486,141 @@ img {
 
 .section {
   margin: 28px 0;
-  animation: riseIn 620ms ease both;
+  --scatter-x: 230px;
+  --scatter-y: 120px;
+  --scatter-rotate: 22deg;
+  --scatter-y-rotate: -14deg;
+}
+
+.site-shell > .section:nth-of-type(2n) {
+  --scatter-x: -250px;
+  --scatter-y: 130px;
+  --scatter-rotate: -24deg;
+  --scatter-y-rotate: 16deg;
+}
+
+.site-shell > .section:nth-of-type(3n) {
+  --scatter-x: 230px;
+  --scatter-y: -120px;
+  --scatter-rotate: 22deg;
+  --scatter-y-rotate: -18deg;
+}
+
+.site-shell > .section:nth-of-type(4n) {
+  --scatter-x: -220px;
+  --scatter-y: -110px;
+  --scatter-rotate: -22deg;
+  --scatter-y-rotate: 14deg;
+}
+
+.site-shell > .section:nth-of-type(1) {
+  transition-delay: 0ms;
+}
+
+.site-shell > .section:nth-of-type(2) {
+  transition-delay: 0ms;
+}
+
+.site-shell > .section:nth-of-type(3) {
+  transition-delay: 0ms;
+}
+
+.site-shell > .section:nth-of-type(4) {
+  transition-delay: 0ms;
+}
+
+.site-shell > .article {
+  --scatter-x: -190px;
+  --scatter-y: 95px;
+  --scatter-rotate: -19deg;
+  --scatter-y-rotate: 16deg;
+}
+
+.hero-copy,
+.hero-art,
+.panel,
+.card,
+.timeline-item,
+.article-card,
+.route-node,
+.book-card,
+.character-portrait,
+.character-info,
+.profile-field,
+.save-slot,
+.sticker-note,
+.anime-sticker-card {
+  transform-origin: center;
+}
+
+.section .panel,
+.section .card,
+.section .timeline-item,
+.section .article-card,
+.section .route-node,
+.section .book-card,
+.section .profile-field,
+.section .save-slot,
+.section .sticker-note,
+.section .anime-sticker-card {
+  --scatter-x: 96px;
+  --scatter-y: 58px;
+  --scatter-rotate: 12deg;
+  --scatter-y-rotate: -10deg;
+  transition-delay: 0ms;
+}
+
+.section :is(.panel, .card, .timeline-item, .article-card, .route-node, .book-card, .profile-field, .save-slot, .sticker-note, .anime-sticker-card):nth-child(2n) {
+  --scatter-x: -110px;
+  --scatter-y: 66px;
+  --scatter-rotate: -13deg;
+  --scatter-y-rotate: 10deg;
+}
+
+.section :is(.panel, .card, .timeline-item, .article-card, .route-node, .book-card, .profile-field, .save-slot, .sticker-note, .anime-sticker-card):nth-child(3n) {
+  --scatter-x: 88px;
+  --scatter-y: -70px;
+  --scatter-rotate: 11deg;
+  --scatter-y-rotate: -8deg;
+}
+
+.scatter-stage :is(.hero, .hero-copy, .hero-art, .section, .article, .panel, .card, .timeline-item, .article-card, .route-node, .book-card, .character-portrait, .character-info, .profile-field, .save-slot) {
+  transition:
+    transform 1800ms cubic-bezier(0.19, 1, 0.22, 1),
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.scatter-stage:not(.scatter-settled) :is(.hero, .hero-copy, .hero-art, .section, .article, .panel, .card, .timeline-item, .article-card, .route-node, .book-card, .character-portrait, .character-info, .profile-field, .save-slot) {
+  opacity: 1;
+  transform:
+    perspective(900px)
+    translate3d(var(--scatter-x, 120px), var(--scatter-y, 70px), 0)
+    rotate(var(--scatter-rotate, 12deg))
+    rotateY(var(--scatter-y-rotate, 12deg))
+    scale(0.92);
+  filter: none;
+}
+
+.scatter-stage.scatter-settled :is(.hero, .hero-copy, .hero-art, .section, .article, .panel, .card, .timeline-item, .article-card, .route-node, .book-card, .character-portrait, .character-info, .profile-field, .save-slot) {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  filter: none;
+}
+
+.scatter-stage:not(.scatter-settled) .route-node:nth-child(even) {
+  transform:
+    perspective(900px)
+    translate3d(var(--scatter-x, -120px), calc(var(--scatter-y, 70px) + 72px), 0)
+    rotate(var(--scatter-rotate, -12deg))
+    rotateY(var(--scatter-y-rotate, 12deg))
+    scale(0.92);
+}
+
+.scatter-stage.scatter-settled .route-node:nth-child(even) {
+  transform: translateY(72px);
 }
 
 .section-header {
@@ -541,24 +756,22 @@ img {
     linear-gradient(135deg, color-mix(in srgb, var(--bg-elevated) 92%, transparent), color-mix(in srgb, var(--bg-soft) 72%, transparent));
   box-shadow: var(--shadow);
   overflow: hidden;
-  animation: routeNodeIn 640ms ease both;
 }
 
 .route-node:nth-child(even) {
   transform: translateY(72px);
-  animation-name: routeNodeInEven;
 }
 
 .route-node:nth-child(2) {
-  animation-delay: 90ms;
+  transition-delay: 0ms;
 }
 
 .route-node:nth-child(3) {
-  animation-delay: 180ms;
+  transition-delay: 0ms;
 }
 
 .route-node:nth-child(4) {
-  animation-delay: 270ms;
+  transition-delay: 0ms;
 }
 
 .route-node::after {
@@ -638,6 +851,55 @@ img {
 .anime-sticker-card span {
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.sticker-note {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--bg-elevated) 84%, transparent);
+  box-shadow: var(--shadow);
+  animation: stickerPop 540ms ease both, softFloat 5.4s ease-in-out infinite;
+}
+
+.sticker-note.tone-pop {
+  box-shadow: var(--shadow), 0 0 30px color-mix(in srgb, var(--accent-2) 20%, transparent);
+}
+
+.sticker-note.tone-cute {
+  box-shadow: var(--shadow), 0 0 30px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.sticker-note img {
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  animation: stickerWiggle 3.8s ease-in-out infinite;
+}
+
+.sticker-note strong {
+  display: block;
+}
+
+.sticker-note span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.sticker-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin: 0 0 16px;
 }
 
 .library-tabs {
@@ -811,6 +1073,24 @@ img {
   }
 }
 
+@keyframes bookReturn {
+  0% {
+    opacity: 0;
+    transform: translate3d(var(--scatter-x), var(--scatter-y), 0) rotate(var(--scatter-rotate)) scale(0.96);
+    filter: blur(1px);
+  }
+  62% {
+    opacity: 1;
+    transform: translate3d(calc(var(--scatter-x) * -0.08), calc(var(--scatter-y) * -0.08), 0) rotate(calc(var(--scatter-rotate) * -0.18)) scale(1.012);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    filter: blur(0);
+  }
+}
+
 @keyframes routeNodeIn {
   from {
     opacity: 0;
@@ -897,6 +1177,25 @@ img {
   }
   50% {
     transform: rotate(2deg) scale(1.04);
+  }
+}
+
+@keyframes stickerWiggle {
+  0%,
+  100% {
+    transform: rotate(-3deg) translateY(0);
+  }
+  50% {
+    transform: rotate(3deg) translateY(-4px);
+  }
+}
+
+@keyframes miniBookSettle {
+  from {
+    transform: translateY(4px) rotate(calc(var(--book-rotate) - 7deg));
+  }
+  to {
+    transform: translateY(-4px) rotate(calc(var(--book-rotate) + 7deg));
   }
 }
 
@@ -1028,6 +1327,88 @@ img {
   color: var(--muted);
 }
 
+.page-arrows {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+}
+
+.page-arrow {
+  pointer-events: auto;
+  position: fixed;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 104px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--bg-elevated) 88%, transparent), color-mix(in srgb, var(--bg-soft) 72%, transparent));
+  color: var(--text);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  transform: translateY(-50%);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.page-arrow::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid color-mix(in srgb, var(--accent) 14%, transparent);
+  pointer-events: none;
+}
+
+.page-arrow-left {
+  left: 12px;
+}
+
+.page-arrow-right {
+  right: 12px;
+}
+
+.page-arrow-left:hover {
+  transform: translateY(-50%) translateX(-4px);
+  border-color: color-mix(in srgb, var(--accent-2) 48%, var(--border));
+  box-shadow: var(--shadow), 0 0 28px color-mix(in srgb, var(--accent-2) 18%, transparent);
+}
+
+.page-arrow-right:hover {
+  transform: translateY(-50%) translateX(4px);
+  border-color: color-mix(in srgb, var(--accent-2) 48%, var(--border));
+  box-shadow: var(--shadow), 0 0 28px color-mix(in srgb, var(--accent-2) 18%, transparent);
+}
+
+.arrow-mark {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 40px;
+  color: var(--accent-2);
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.arrow-copy {
+  display: grid;
+  gap: 2px;
+  min-width: 42px;
+}
+
+.arrow-copy small {
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.arrow-copy strong {
+  font-size: 0.92rem;
+}
+
 @media (max-width: 900px) {
   .hero,
   .grid.projects,
@@ -1075,6 +1456,31 @@ img {
     flex-direction: column;
     align-items: start;
   }
+
+  .page-arrow {
+    top: auto;
+    bottom: 14px;
+    min-width: auto;
+    padding: 9px 10px;
+    transform: none;
+  }
+
+  .page-arrow-left {
+    left: 12px;
+  }
+
+  .page-arrow-right {
+    right: 12px;
+  }
+
+  .page-arrow-left:hover,
+  .page-arrow-right:hover {
+    transform: translateY(-3px);
+  }
+
+  .arrow-copy {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1086,4 +1492,23 @@ img {
     scroll-behavior: auto !important;
     transition-duration: 1ms !important;
   }
+}
+
+/* This entrance is an intentional part of the page identity. Keep it smooth even
+   when the host browser reports reduced-motion unexpectedly. */
+.scatter-stage :is(.hero, .hero-copy, .hero-art, .section, .article, .panel, .card, .timeline-item, .article-card, .route-node, .book-card, .character-portrait, .character-info, .profile-field, .save-slot) {
+  transition:
+    transform 2200ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 180ms ease,
+    border-color 180ms ease !important;
+}
+
+.book-return-cue span {
+  transition:
+    transform 2200ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 520ms ease 1750ms !important;
+}
+
+.scatter-stage.scatter-settled .book-return-cue::after {
+  transition: opacity 520ms ease 1750ms !important;
 }

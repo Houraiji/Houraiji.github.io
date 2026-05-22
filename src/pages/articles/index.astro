@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import SectionHeading from "../../components/SectionHeading.astro";
 import ArticleCard from "../../components/ArticleCard.astro";
 import AnimeSticker from "../../components/AnimeSticker.astro";
+import StickerNote from "../../components/StickerNote.astro";
 import { getCollection } from "astro:content";
 
 const articles = (await getCollection("articles")).sort(
@@ -28,6 +29,19 @@ const categories = ["全部", ...new Set(articles.map((article) => article.data.
   <section class="section">
     <SectionHeading title="文章列表" subtitle="文章详情页已连通。" />
     <AnimeSticker label="Library Keeper" src="/assets/generated/chibi-devil.png" compact />
+    <div class="sticker-row">
+      <StickerNote
+        src="/assets/generated/stickers/chin.png"
+        title="托腮玩味"
+        caption="适合陪着长文和思考。"
+      />
+      <StickerNote
+        src="/assets/generated/stickers/tired.png"
+        title="疲惫叹气"
+        caption="复盘写累了也算成长。"
+        tone="cute"
+      />
+    </div>
     <div class="library-shelf">
       {articles.map((article) => (
         <div class="book-card">

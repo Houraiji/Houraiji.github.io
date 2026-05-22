@@ -1,5 +1,7 @@
 ---
-import { profile } from "../data/profile";
+import profileData from "../data/profile.json";
+
+const { profile } = profileData;
 ---
 
 <footer class="site-footer">
@@ -12,6 +14,7 @@ import { profile } from "../data/profile";
       {profile.quietLinks.map((link) => (
         <a href={link.href}>{link.label}</a>
       ))}
+      <a href="/admin/index.html">内容管理</a>
     </div>
   </div>
 </footer>

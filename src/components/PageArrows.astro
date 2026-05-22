@@ -1,0 +1,40 @@
+---
+const pages = [
+  { href: "/", label: "首页", short: "Home" },
+  { href: "/growth/", label: "成长线", short: "Route" },
+  { href: "/projects/", label: "项目", short: "Records" },
+  { href: "/articles/", label: "文章", short: "Notes" },
+  { href: "/about/", label: "关于", short: "Profile" },
+];
+
+const pathname = Astro.url.pathname;
+const activeIndex = pages.findIndex((page) => {
+  if (page.href === "/") return pathname === "/";
+  return pathname.startsWith(page.href);
+});
+
+const index = activeIndex === -1 ? 0 : activeIndex;
+const previous = pages[index - 1];
+const next = pages[index + 1];
+---
+
+<nav class="page-arrows" aria-label="页面切换">
+  {previous && (
+    <a class="page-arrow page-arrow-left" href={previous.href} aria-label={`上一页：${previous.label}`}>
+      <span class="arrow-mark">‹</span>
+      <span class="arrow-copy">
+        <small>Prev</small>
+        <strong>{previous.short}</strong>
+      </span>
+    </a>
+  )}
+  {next && (
+    <a class="page-arrow page-arrow-right" href={next.href} aria-label={`下一页：${next.label}`}>
+      <span class="arrow-copy">
+        <small>Next</small>
+        <strong>{next.short}</strong>
+      </span>
+      <span class="arrow-mark">›</span>
+    </a>
+  )}
+</nav>

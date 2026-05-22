@@ -1,0 +1,136 @@
+backend:
+  name: git-gateway
+
+local_backend:
+  url: http://127.0.0.1:8081/api/v1
+
+media_folder: public/uploads
+public_folder: /uploads
+
+site_url: /
+display_url: /
+logo_url: /assets/archive-emblem.svg
+
+collections:
+  - name: articles
+    label: 文章
+    label_singular: 文章
+    folder: src/content/articles
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    preview_path: articles/{{slug}}
+    fields:
+      - { label: 标题, name: title, widget: string }
+      - { label: 描述, name: description, widget: text }
+      - { label: 日期, name: date, widget: datetime, format: "YYYY-MM-DD", time_format: false }
+      - { label: 分类, name: category, widget: string }
+      - label: 标签
+        name: tags
+        widget: list
+        allow_add: true
+        field: { label: 标签, name: tag, widget: string }
+      - { label: 阅读时间, name: readingTime, widget: string, default: "5 分钟" }
+      - { label: 首页精选, name: featured, widget: boolean, default: false, required: false }
+      - { label: 正文, name: body, widget: markdown }
+
+  - name: site_data
+    label: 站点内容
+    files:
+      - label: 个人资料
+        name: profile
+        file: src/data/profile.json
+        format: json
+        fields:
+          - label: 资料卡
+            name: profile
+            widget: object
+            fields:
+              - { label: 名字, name: displayName, widget: string }
+              - { label: 存档代号, name: handle, widget: string }
+              - { label: 简介, name: shortIntro, widget: text }
+              - { label: 当前章节, name: currentChapter, widget: string }
+              - label: 当前关注
+                name: currentFocus
+                widget: list
+                field: { label: 关注项, name: item, widget: string }
+              - { label: 当前状态, name: status, widget: string }
+              - label: 链接
+                name: quietLinks
+                widget: list
+                summary: "{{fields.label}}"
+                fields:
+                  - { label: 名称, name: label, widget: string }
+                  - { label: 地址, name: href, widget: string }
+          - label: 技能树
+            name: skills
+            widget: list
+            summary: "{{fields.name}} · {{fields.level}}%"
+            fields:
+              - { label: 技能名, name: name, widget: string }
+              - { label: 熟练度, name: level, widget: number, min: 0, max: 100, step: 1 }
+              - { label: 备注, name: note, widget: string }
+          - label: 兴趣
+            name: interests
+            widget: list
+            field: { label: 兴趣项, name: item, widget: string }
+
+      - label: 成长路线
+        name: growth
+        file: src/data/growth.json
+        format: json
+        fields:
+          - label: 节点
+            name: growthNodes
+            widget: list
+            summary: "{{fields.chapter}} · {{fields.title}}"
+            fields:
+              - { label: 标题, name: title, widget: string }
+              - { label: 章节, name: chapter, widget: string }
+              - { label: 时间范围, name: timeRange, widget: string }
+              - { label: 摘要, name: summary, widget: text }
+              - { label: 详情, name: details, widget: text }
+              - label: 关键词
+                name: keywords
+                widget: list
+                field: { label: 关键词, name: keyword, widget: string }
+              - label: 关联项目 ID
+                name: relatedProjects
+                widget: list
+                required: false
+                field: { label: 项目 ID, name: project, widget: string }
+              - label: 关联文章 slug
+                name: relatedArticles
+                widget: list
+                required: false
+                field: { label: slug, name: article, widget: string }
+
+      - label: 项目档案
+        name: projects
+        file: src/data/projects.json
+        format: json
+        fields:
+          - label: 项目列表
+            name: projects
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: 项目 ID, name: id, widget: string }
+              - { label: 标题, name: title, widget: string }
+              - { label: 描述, name: description, widget: text }
+              - { label: 角色, name: role, widget: string }
+              - label: 技术栈
+                name: techStack
+                widget: list
+                field: { label: 技术项, name: tech, widget: string }
+              - label: 链接
+                name: links
+                widget: list
+                required: false
+                summary: "{{fields.label}}"
+                fields:
+                  - { label: 名称, name: label, widget: string }
+                  - { label: 地址, name: href, widget: string }
+              - { label: 首页精选, name: featured, widget: boolean, default: false, required: false }
+              - { label: 复盘, name: reflection, widget: text }

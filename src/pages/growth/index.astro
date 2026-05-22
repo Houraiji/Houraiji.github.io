@@ -2,7 +2,10 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SectionHeading from "../../components/SectionHeading.astro";
 import AnimeSticker from "../../components/AnimeSticker.astro";
-import { growthNodes } from "../../data/growth";
+import StickerNote from "../../components/StickerNote.astro";
+import growthData from "../../data/growth.json";
+
+const { growthNodes } = growthData;
 ---
 
 <BaseLayout title="成长线" description="按章节和节点记录的个人成长路线。">
@@ -15,6 +18,19 @@ import { growthNodes } from "../../data/growth";
   <section class="section">
     <SectionHeading title="Checkpoint Log" subtitle="后续每个节点都可以展开成故事、项目和复盘。" />
     <AnimeSticker label="Route Navigator" src="/assets/generated/chibi-guide.png" compact />
+    <div class="sticker-row">
+      <StickerNote
+        src="/assets/generated/stickers/fist.png"
+        title="开心攥拳"
+        caption="适合放在突破节点旁。"
+        tone="cute"
+      />
+      <StickerNote
+        src="/assets/generated/stickers/question.png"
+        title="疑惑问号"
+        caption="迷茫期也要被记录。"
+      />
+    </div>
     <div class="route-map">
       {growthNodes.map((node, index) => (
         <article class={`route-node node-${index + 1}`}>

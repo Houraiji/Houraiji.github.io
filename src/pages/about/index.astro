@@ -1,7 +1,10 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SectionHeading from "../../components/SectionHeading.astro";
-import { profile, skills, interests } from "../../data/profile";
+import StickerNote from "../../components/StickerNote.astro";
+import profileData from "../../data/profile.json";
+
+const { profile, skills, interests } = profileData;
 ---
 
 <BaseLayout title="关于" description="个人资料、能力树、兴趣和低调联系方式。">
@@ -65,6 +68,20 @@ import { profile, skills, interests } from "../../data/profile";
 
   <section class="section">
     <SectionHeading title="Interests" subtitle="把喜欢的东西保留在结构里。" />
+    <div class="sticker-row">
+      <StickerNote
+        src="/assets/generated/stickers/cat-paw.png"
+        title="猫耳喵喵拳"
+        caption="游戏和动漫兴趣区专属。"
+        tone="pop"
+      />
+      <StickerNote
+        src="/assets/generated/stickers/cat-smirk.png"
+        title="猫耳歪头坏笑"
+        caption="一点点个人风格。"
+        tone="cute"
+      />
+    </div>
     <div class="chips">
       {interests.map((item) => <span class="chip">{item}</span>)}
     </div>

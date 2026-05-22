@@ -1,0 +1,17 @@
+---
+const {
+  src,
+  title,
+  caption = "",
+  tone = "soft",
+  class: className = "",
+} = Astro.props;
+---
+
+<div class:list={["sticker-note", `tone-${tone}`, className]}>
+  <img src={src} alt={title} />
+  <div>
+    <strong>{title}</strong>
+    {caption && <span>{caption}</span>}
+  </div>
+</div>

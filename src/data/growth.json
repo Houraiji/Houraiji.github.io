@@ -1,0 +1,44 @@
+{
+  "growthNodes": [
+    {
+      "title": "起点",
+      "chapter": "Chapter 00",
+      "timeRange": "过去的某个阶段",
+      "summary": "这里会写最初为什么开始，以及兴趣是怎样出现的。",
+      "details": "保留给真实经历：动机、环境、第一次认真投入的契机。",
+      "keywords": ["原点", "兴趣", "开始"],
+      "relatedProjects": [],
+      "relatedArticles": ["first-checkpoint"]
+    },
+    {
+      "title": "探索期",
+      "chapter": "Chapter 01",
+      "timeRange": "摸索和试错",
+      "summary": "记录尝试不同方向、形成判断标准的过程。",
+      "details": "保留给真实经历：试过什么，放弃过什么，哪些东西留下来了。",
+      "keywords": ["试错", "学习", "方向"],
+      "relatedProjects": [],
+      "relatedArticles": []
+    },
+    {
+      "title": "第一次成型",
+      "chapter": "Chapter 02",
+      "timeRange": "能力开始连接",
+      "summary": "从零散学习走向完整项目和更稳定的表达。",
+      "details": "保留给真实经历：代表项目、关键困难、最后学到的东西。",
+      "keywords": ["项目", "系统", "复盘"],
+      "relatedProjects": ["personal-archive"],
+      "relatedArticles": ["project-reflection"]
+    },
+    {
+      "title": "正在继续",
+      "chapter": "Chapter 03",
+      "timeRange": "现在",
+      "summary": "把成长变成可持续记录的系统。",
+      "details": "保留给真实经历：当前关注、下一阶段目标、正在突破的问题。",
+      "keywords": ["现在", "长期", "记录"],
+      "relatedProjects": ["growth-blog"],
+      "relatedArticles": []
+    }
+  ]
+}

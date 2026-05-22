@@ -2,10 +2,15 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import AnimeSticker from "../components/AnimeSticker.astro";
-import { profile, skills, interests } from "../data/profile";
-import { growthNodes } from "../data/growth";
-import { projects } from "../data/projects";
+import StickerNote from "../components/StickerNote.astro";
+import profileData from "../data/profile.json";
+import growthData from "../data/growth.json";
+import projectsData from "../data/projects.json";
 import { getCollection } from "astro:content";
+
+const { profile, skills, interests } = profileData;
+const { growthNodes } = growthData;
+const { projects } = projectsData;
 
 const articles = (await getCollection("articles")).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -36,6 +41,12 @@ const featuredArticles = articles.filter((article) => article.data.featured).sli
         <p class="meta">这是一个先搭好容器、后慢慢填内容的网站。文章、项目和成长节点都会保留结构化入口。</p>
       </div>
       <AnimeSticker label="Save Fairy" src="/assets/generated/chibi-angel.png" compact />
+      <StickerNote
+        src="/assets/generated/stickers/wink.png"
+        title="俏皮 wink"
+        caption="准备读取今天的存档。"
+        tone="pop"
+      />
     </div>
   </section>
 
@@ -70,9 +81,9 @@ const featuredArticles = articles.filter((article) => article.data.featured).sli
   <section class="section">
     <SectionHeading title="表情贴纸" subtitle="把动漫感放进页面的小情绪里。" />
     <div class="sticker-strip">
-      <img src="/assets/generated/sticker-smile.png" alt="温柔浅笑贴纸" />
-      <img src="/assets/generated/sticker-stars.png" alt="惊喜星星眼贴纸" />
-      <img src="/assets/generated/sticker-question.png" alt="疑惑问号贴纸" />
+      <img src="/assets/generated/stickers/smile.png" alt="温柔浅笑：适合放在当前状态旁边" title="温柔浅笑" />
+      <img src="/assets/generated/stickers/stars.png" alt="惊喜星星眼：适合代表新发现" title="惊喜星星眼" />
+      <img src="/assets/generated/stickers/peace.png" alt="比耶眨眼：适合代表阶段达成" title="比耶眨眼" />
     </div>
   </section>
 

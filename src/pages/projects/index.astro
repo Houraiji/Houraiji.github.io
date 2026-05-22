@@ -1,7 +1,10 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SectionHeading from "../../components/SectionHeading.astro";
-import { projects } from "../../data/projects";
+import StickerNote from "../../components/StickerNote.astro";
+import projectsData from "../../data/projects.json";
+
+const { projects } = projectsData;
 ---
 
 <BaseLayout title="项目" description="项目档案页面，记录成长中的作品与复盘。">
@@ -13,6 +16,20 @@ import { projects } from "../../data/projects";
 
   <section class="section">
     <SectionHeading title="Record Files" subtitle="像打开档案一样查看每个项目。" />
+    <div class="sticker-row">
+      <StickerNote
+        src="/assets/generated/stickers/clap.png"
+        title="开心鼓掌"
+        caption="完成一个项目就该庆祝一下。"
+        tone="pop"
+      />
+      <StickerNote
+        src="/assets/generated/stickers/peace.png"
+        title="比耶眨眼"
+        caption="适合放在精选项目旁边。"
+        tone="cute"
+      />
+    </div>
     <div class="grid projects">
       {projects.map((project) => (
         <article class="card">

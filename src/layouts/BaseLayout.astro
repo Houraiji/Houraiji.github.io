@@ -1,13 +1,14 @@
 ---
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import PageArrows from "../components/PageArrows.astro";
 import "../styles/global.css";
 
 const { title, description } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="scatter-stage">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,12 +16,59 @@ const { title, description } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
+    <script is:inline>
+      document.documentElement.classList.remove("scatter-settled");
+      requestAnimationFrame(() => {
+        const randomBetween = (min, max) => Math.round(min + Math.random() * (max - min));
+        const scatterItems = document.querySelectorAll(
+          ".hero, .hero-copy, .hero-art, .section, .article, .panel, .card, .timeline-item, .article-card, .route-node, .book-card, .character-portrait, .character-info, .profile-field, .save-slot"
+        );
+
+        scatterItems.forEach((item) => {
+          const isLarge = item.matches(".hero, .section, .article, .hero-copy, .hero-art");
+          const isRouteEven = item.matches(".route-node:nth-child(even)");
+          const xRange = isLarge ? 280 : 130;
+          const yRange = isLarge ? 150 : 82;
+          const rotateRange = isLarge ? 24 : 14;
+          const yRotateRange = isLarge ? 20 : 12;
+
+          let x = randomBetween(-xRange, xRange);
+          let y = randomBetween(-yRange, yRange);
+          let rotate = randomBetween(-rotateRange, rotateRange);
+          let yRotate = randomBetween(-yRotateRange, yRotateRange);
+
+          if (Math.abs(x) < xRange * 0.32) x += x < 0 ? -xRange * 0.32 : xRange * 0.32;
+          if (Math.abs(y) < yRange * 0.24) y += y < 0 ? -yRange * 0.24 : yRange * 0.24;
+          if (Math.abs(rotate) < 5) rotate += rotate < 0 ? -5 : 5;
+          if (isRouteEven) y -= 72;
+
+          item.style.setProperty("--scatter-x", `${Math.round(x)}px`);
+          item.style.setProperty("--scatter-y", `${Math.round(y)}px`);
+          item.style.setProperty("--scatter-rotate", `${Math.round(rotate)}deg`);
+          item.style.setProperty("--scatter-y-rotate", `${Math.round(yRotate)}deg`);
+        });
+
+        document.body?.getBoundingClientRect();
+        requestAnimationFrame(() => {
+          document.documentElement.classList.add("scatter-settled");
+        });
+      });
+    </script>
+    <div class="book-return-cue" aria-hidden="true">
+      <span style="--book-x: -220px; --book-y: 42px; --book-r: -18deg;">Home</span>
+      <span style="--book-x: -92px; --book-y: -38px; --book-r: 12deg;">Route</span>
+      <span style="--book-x: 38px; --book-y: 58px; --book-r: -10deg;">Records</span>
+      <span style="--book-x: 148px; --book-y: -52px; --book-r: 16deg;">Notes</span>
+      <span style="--book-x: 246px; --book-y: 32px; --book-r: -14deg;">Profile</span>
+    </div>
+    <div class="background-illustration" aria-hidden="true"></div>
     <div class="page-decor decor-a" aria-hidden="true"></div>
     <div class="page-decor decor-b" aria-hidden="true"></div>
     <SiteHeader />
     <main class="site-shell">
       <slot />
     </main>
+    <PageArrows />
     <SiteFooter />
   </body>
 </html>

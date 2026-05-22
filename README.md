@@ -77,20 +77,54 @@ src/content/articles/
 成长线节点放在：
 
 ```text
-src/data/growth.ts
+src/data/growth.json
 ```
 
 项目记录放在：
 
 ```text
-src/data/projects.ts
+src/data/projects.json
 ```
 
 个人资料、当前章节、联系方式和能力树放在：
 
 ```text
-src/data/profile.ts
+src/data/profile.json
 ```
+
+## 后台编辑
+
+项目已经接入了一个轻量 CMS 入口：
+
+```text
+/admin/index.html
+```
+
+本地使用方式：
+
+```bash
+npm run dev
+npm run cms
+```
+
+然后访问：
+
+```text
+http://127.0.0.1:4321/admin/index.html
+```
+
+当前可编辑内容：
+
+- `src/content/articles/` 里的 Markdown 文章
+- `src/data/profile.json` 里的个人资料、技能树、兴趣
+- `src/data/growth.json` 里的成长路线节点
+- `src/data/projects.json` 里的项目档案
+
+说明：
+
+- 本地编辑依赖 Decap 的 local backend 代理。
+- 当前仓库已经预留 GitHub 仓库配置，适合继续往线上 CMS 方向扩展。
+- 如果以后要在部署后直接网页登录管理，还需要补一个 GitHub OAuth / auth bridge，这一步我可以下一轮继续帮你接。
 
 ## 环境变量
 
