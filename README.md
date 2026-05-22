@@ -17,6 +17,32 @@
 | 关于 | `/about/` | 角色资料卡、当前章节、技能树、兴趣和联系方式 |
 | 本地后台 | `/admin/index.html` | 本地专用内容管理台，可直接编辑 JSON 和 Markdown |
 
+## 页面预览
+
+### 首页
+
+![首页预览](docs/screenshots/home.png)
+
+### 成长线
+
+![成长线预览](docs/screenshots/growth.png)
+
+### 项目页
+
+![项目页预览](docs/screenshots/projects.png)
+
+### 文章页
+
+![文章页预览](docs/screenshots/articles.png)
+
+### 关于页
+
+![关于页预览](docs/screenshots/about.png)
+
+### 本地后台
+
+![本地后台预览](docs/screenshots/admin.png)
+
 ## 页面风格概览
 
 ### 首页
