@@ -5,46 +5,116 @@ import StickerNote from "../../components/StickerNote.astro";
 import projectsData from "../../data/projects.json";
 
 const { projects } = projectsData;
+const typeLabels: Record<string, string> = {
+  project: "公开项目",
+  experience_project: "实习项目",
+  learning_trace: "学习痕迹",
+  supplemental_story: "兴趣实验",
+};
+const typeLabel = (type: string) => typeLabels[type] ?? type;
+
+const portfolioProjects = projects.filter((project) => ["project", "experience_project"].includes(project.type));
+const learningTraceProjects = projects.filter((project) => project.type === "learning_trace");
+const supplementalStories = projects.filter((project) => project.type === "supplemental_story");
 ---
 
-<BaseLayout title="项目" description="项目档案页面，记录成长中的作品与复盘。">
+<BaseLayout title="项目档案" description="Houraiji 的公开项目、实习项目和早期学习痕迹。">
   <section class="article">
     <div class="eyebrow">Archive Records · 项目档案</div>
-    <h1>记录档案</h1>
-    <p class="meta">项目不是战绩墙，而是成长线上的证据：做了什么、承担什么、后来理解了什么。</p>
+    <h1>项目档案</h1>
+    <p class="meta">
+      项目不是战绩墙，而是成长线上的证据：做了什么、承担什么角色、技术链路怎么搭、后来理解了什么。
+      这里按公开安全口径展示，空仓库链接不会被伪造成 GitHub 项目。
+    </p>
   </section>
 
   <section class="section">
-    <SectionHeading title="Record Files" subtitle="像打开档案一样查看每个项目。" />
+    <SectionHeading title="正式项目与实习项目" subtitle="公开仓库和简历项目共用档案卡：名称、时间、角色、简介、技术栈、亮点和链接。" />
     <div class="sticker-row">
       <StickerNote
         src="/assets/generated/stickers/clap.png"
-        title="开心鼓掌"
-        caption="完成一个项目就该庆祝一下。"
+        title="项目完成"
+        caption="能复盘的项目，才算真正留下来。"
         tone="pop"
       />
       <StickerNote
         src="/assets/generated/stickers/peace.png"
-        title="比耶眨眼"
-        caption="适合放在精选项目旁边。"
+        title="公开安全"
+        caption="没有公开仓库的实习项目只标注来源，不虚构链接。"
         tone="cute"
       />
     </div>
     <div class="grid projects">
-      {projects.map((project) => (
-        <article class="card">
+      {portfolioProjects.map((project) => (
+        <article class="card project-card" id={project.id}>
+          <div class="chips">
+            <span class="chip">{typeLabel(project.type)}</span>
+            <span class="chip">{project.period}</span>
+            {project.techStack.slice(0, 4).map((tech) => <span class="chip">{tech}</span>)}
+          </div>
+          <h3>{project.name}</h3>
+          <p class="meta">{project.summary}</p>
+          <div class="project-meta-grid">
+            <span>角色：{project.role}</span>
+            <span>来源：{project.source}</span>
+          </div>
+          <strong>亮点</strong>
+          <ul class="clean-list">
+            {project.highlights.map((highlight) => <li>{highlight}</li>)}
+          </ul>
+          <div class="links">
+            {project.url
+              ? <a class="ghost-link" href={project.url} target="_blank" rel="noreferrer">GitHub</a>
+              : <span class="small">简历项目 / 暂无公开仓库</span>}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <SectionHeading title="早期学习痕迹" subtitle="这些不是主力作品集，而是从校园工程和后端基础走向 AI 应用的早期线索。" />
+    <div class="grid projects">
+      {learningTraceProjects.map((project) => (
+        <article class="card project-card" id={project.id}>
+          <div class="chips">
+            <span class="chip">{typeLabel(project.type)}</span>
+            <span class="chip">{project.period}</span>
+            {project.techStack.map((tech) => <span class="chip">{tech}</span>)}
+          </div>
+          <h3>{project.name}</h3>
+          <p class="meta">{project.summary}</p>
+          <p class="small">角色：{project.role}</p>
+          <ul class="clean-list">
+            {project.highlights.map((highlight) => <li>{highlight}</li>)}
+          </ul>
+          <div class="links">
+            {project.url && <a class="ghost-link" href={project.url} target="_blank" rel="noreferrer">GitHub</a>}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <SectionHeading title="兴趣实验" subtitle="补充叙事可以保留，但不写成正式上线项目。" />
+    <div class="grid projects">
+      {supplementalStories.map((project) => (
+        <article class="card project-card" id={project.id}>
+          <div class="chips">
+            <span class="chip">个人实验</span>
+            <span class="chip">不作为正式上线项目</span>
+            <span class="chip">{project.period}</span>
+          </div>
+          <h3>{project.name}</h3>
+          <p class="meta">{project.summary}</p>
+          <p class="small">角色：{project.role}</p>
           <div class="chips">
             {project.techStack.map((tech) => <span class="chip">{tech}</span>)}
           </div>
-          <h3>{project.title}</h3>
-          <p class="meta">{project.description}</p>
-          <p class="small">{project.role}</p>
-          <p class="small">{project.reflection}</p>
-          {project.links.length > 0 && (
-            <div class="links">
-              {project.links.map((link) => <a class="ghost-link" href={link.href}>{link.label}</a>)}
-            </div>
-          )}
+          <ul class="clean-list">
+            {project.highlights.map((highlight) => <li>{highlight}</li>)}
+          </ul>
         </article>
       ))}
     </div>

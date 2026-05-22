@@ -1,24 +1,26 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
+import { withBase, withoutBase } from "../lib/paths";
 
 const navItems = [
-  ["首页", "/"],
-  ["成长线", "/growth/"],
-  ["项目", "/projects/"],
-  ["文章", "/articles/"],
-  ["关于", "/about/"],
+  ["个人资料", "/about/"],
+  ["成长路线", "/growth/"],
+  ["项目档案", "/projects/"],
+  ["文章归档", "/articles/"],
 ];
+
+const pathname = withoutBase(Astro.url.pathname);
 ---
 
 <header class="site-header">
   <div class="site-shell header-inner">
-    <div class="brand">
-      <strong>个人成长博客</strong>
-      <span>中文为主 · 清爽 · 稍带档案感</span>
-    </div>
+    <a class="brand" href={withBase("/")} aria-label="回到首页">
+      <strong>Houraiji</strong>
+      <span>AI 应用开发 · RAG · Agent · 成长存档</span>
+    </a>
     <nav class="nav" aria-label="主导航">
       {navItems.map(([label, href]) => (
-        <a href={href} aria-current={Astro.url.pathname === href ? "page" : undefined}>{label}</a>
+        <a href={withBase(href)} aria-current={pathname === href ? "page" : undefined}>{label}</a>
       ))}
     </nav>
     <ThemeToggle />

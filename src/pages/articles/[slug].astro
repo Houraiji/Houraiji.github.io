@@ -1,5 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import projectsData from "../../data/projects.json";
+import { findProjectByRef, getArticleReadingTime, getArticleSummary } from "../../lib/content";
+import { withBase } from "../../lib/paths";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -12,18 +15,50 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await article.render();
+const summary = getArticleSummary(article);
+const readingTime = getArticleReadingTime(article);
+const isFiction = article.data.category === "短篇小说";
+const { projects } = projectsData;
+const relatedProjects = article.data.relatedProjects ?? [];
+
+const projectInfo = (ref: string) => {
+  const project = findProjectByRef(projects, ref);
+  return project ? { label: project.name, href: withBase(`/projects/#${project.id}`) } : { label: ref, href: "" };
+};
 ---
 
-<BaseLayout title={`${article.data.title} · 文章`} description={article.data.description}>
+<BaseLayout title={`${article.data.title} · 文章`} description={summary}>
   <article class="article">
     <div class="chips">
       <span class="chip">{article.data.category}</span>
-      <span class="chip">{article.data.readingTime}</span>
+      {article.data.worldline && <span class="chip">{article.data.worldline}</span>}
+      {article.data.tone && <span class="chip">{article.data.tone}</span>}
+      <span class="chip">{readingTime}</span>
       {article.data.featured && <span class="chip">精选</span>}
     </div>
     <h1>{article.data.title}</h1>
-    <p class="meta">{article.data.description}</p>
+    <p class="meta">{summary}</p>
     <p class="small">{article.data.date.toLocaleDateString("zh-CN")} · {article.data.tags.join(" · ")}</p>
+
+    {isFiction && (
+      <div class="notice">
+        这篇是短篇小说 / 创作内容，不代表现实经历，也不作为项目或简历事实展示。
+      </div>
+    )}
+
+    {relatedProjects.length > 0 && (
+      <div class="article-relations">
+        <span class="small">关联项目：</span>
+        <div class="links">
+          {relatedProjects.map((ref) => {
+            const project = projectInfo(ref);
+            return project.href
+              ? <a class="ghost-link" href={project.href}>{project.label}</a>
+              : <span class="small">{project.label}</span>;
+          })}
+        </div>
+      </div>
+    )}
 
     <div class="article-content">
       <Content />

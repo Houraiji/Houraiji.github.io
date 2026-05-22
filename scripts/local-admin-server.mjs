@@ -81,24 +81,31 @@ const parseTitle = (content) => {
 
 const escapeFrontmatter = (value) => String(value || "").replace(/\\/g, "\\\\").replace(/"/g, '\\"');
 
-const createArticleMarkdown = ({ title, description, category, tags, readingTime, featured, content }) => {
+const createArticleMarkdown = ({ title, description, category, tags, worldline, tone, relatedProjects, content }) => {
   const tagList = Array.isArray(tags)
     ? tags
     : String(tags || "")
         .split(",")
         .map((tag) => tag.trim())
         .filter(Boolean);
+  const projectList = Array.isArray(relatedProjects)
+    ? relatedProjects
+    : String(relatedProjects || "")
+        .split(/[\n,，]/)
+        .map((project) => project.trim())
+        .filter(Boolean);
 
   const today = new Date().toISOString().slice(0, 10);
 
   return `---
 title: "${escapeFrontmatter(title || "未命名札记")}"
-description: "${escapeFrontmatter(description || "这里写这篇文章的简短摘要。")}"
 date: "${today}"
 category: "${escapeFrontmatter(category || "阶段记录")}"
 tags: ${JSON.stringify(tagList.length ? tagList : ["未分类"])}
-readingTime: "${escapeFrontmatter(readingTime || "3 分钟")}"
-featured: ${Boolean(featured)}
+worldline: "${escapeFrontmatter(worldline || "成长线")}"
+tone: "${escapeFrontmatter(tone || "技术复盘")}"
+relatedProjects: ${JSON.stringify(projectList)}
+summary: "${escapeFrontmatter(description || "这里写这篇文章的简短摘要。")}"
 ---
 
 ${content || "从这里开始写正文。\n"}

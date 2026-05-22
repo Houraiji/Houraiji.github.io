@@ -1,16 +1,22 @@
 ---
+import { getArticleReadingTime, getArticleSummary } from "../lib/content";
+
 const { article, href } = Astro.props;
+const summary = getArticleSummary(article);
+const readingTime = getArticleReadingTime(article);
 ---
 
 <article class="article-card">
   <div class="stack">
     <div class="chips">
       <span class="chip">{article.data.category}</span>
-      <span class="chip">{article.data.readingTime}</span>
+      {article.data.worldline && <span class="chip">{article.data.worldline}</span>}
+      {article.data.tone && <span class="chip">{article.data.tone}</span>}
+      <span class="chip">{readingTime}</span>
       {article.data.featured && <span class="chip">精选</span>}
     </div>
     <h3>{article.data.title}</h3>
-    <p class="meta">{article.data.description}</p>
+    <p class="meta">{summary}</p>
   </div>
   <div class="footer">
     <span class="small">{article.data.date.toLocaleDateString("zh-CN")}</span>

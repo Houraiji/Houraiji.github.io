@@ -1,4 +1,6 @@
 ---
+import { withBase } from "../lib/paths";
+
 const {
   src,
   title,
@@ -6,10 +8,11 @@ const {
   tone = "soft",
   class: className = "",
 } = Astro.props;
+const imageSrc = withBase(src);
 ---
 
 <div class:list={["sticker-note", `tone-${tone}`, className]}>
-  <img src={src} alt={title} />
+  <img src={imageSrc} alt={title} />
   <div>
     <strong>{title}</strong>
     {caption && <span>{caption}</span>}

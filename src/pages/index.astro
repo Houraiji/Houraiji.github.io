@@ -6,6 +6,8 @@ import StickerNote from "../components/StickerNote.astro";
 import profileData from "../data/profile.json";
 import growthData from "../data/growth.json";
 import projectsData from "../data/projects.json";
+import { getArticleReadingTime, getArticleSummary } from "../lib/content";
+import { withBase } from "../lib/paths";
 import { getCollection } from "astro:content";
 
 const { profile, skills, interests } = profileData;
@@ -15,36 +17,43 @@ const { projects } = projectsData;
 const articles = (await getCollection("articles")).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
-const featuredArticles = articles.filter((article) => article.data.featured).slice(0, 2);
+const latestArticles = articles.slice(0, 3);
+const featuredProjectIds = ["knowbot", "kare-med", "tcm-health-bot", "fast-whisper-plugin"];
+const featuredProjects = featuredProjectIds
+  .map((id) => projects.find((project) => project.id === id))
+  .filter((project): project is (typeof projects)[number] => Boolean(project));
 ---
 
-<BaseLayout title="个人成长博客" description="中文为主的个人成长博客，清爽克制，带一点日系和轻量 RPG 档案感。">
+<BaseLayout title="Houraiji" description="Houraiji 的个人成长博客，记录 AI 应用开发、RAG、Agent、垂直领域大模型工程与真实成长路线。">
   <section class="hero">
     <div class="hero-copy">
       <div class="eyebrow">Visual Novel Archive · {profile.handle}</div>
       <h1>{profile.displayName}</h1>
       <p>{profile.shortIntro}</p>
-      <p>这里不是一份平铺直叙的简历，而是一份会随着时间更新的成长存档：每个阶段、项目和文章，都是一个可以回看的 checkpoint。</p>
+      <p>
+        这里不是一份平铺直叙的简历，而是一份公开安全的成长存档：从大二的工程基础，到 RAG、Agent、
+        多模态文档理解和垂直领域 AI 应用，把每个阶段的项目、复盘和一点点日常吐槽都留下来。
+      </p>
       <div class="chips">
         {profile.currentFocus.map((item) => <span class="chip">{item}</span>)}
       </div>
       <div class="chips">
-        <button class="button-link load-save-button" type="button" data-load-save>读取成长存档</button>
-        <a class="ghost-link" href="/projects/">查看记录档案</a>
+        <button class="button-link load-save-button" type="button" data-load-save data-target={withBase("/growth/")} data-fallback={withBase("/")}>读取成长路线</button>
+        <a class="ghost-link" href={withBase("/projects/")}>查看项目档案</a>
       </div>
     </div>
     <div class="hero-art">
-      <img class="hero-character" src="/assets/generated/anime-archive-assistant.png" alt="动漫风格的个人成长档案助手" />
+      <img class="hero-character" src={withBase("/assets/generated/anime-archive-assistant.png")} alt="动漫风格的个人成长档案助手" />
       <div class="panel">
         <div class="muted">Status Window</div>
         <h3>{profile.status}</h3>
-        <p class="meta">这是一个先搭好容器、后慢慢填内容的网站。文章、项目和成长节点都会保留结构化入口。</p>
+        <p class="meta">{profile.narrative}</p>
       </div>
       <AnimeSticker label="Save Fairy" src="/assets/generated/chibi-angel.png" compact />
       <StickerNote
         src="/assets/generated/stickers/wink.png"
-        title="俏皮 wink"
-        caption="准备读取今天的存档。"
+        title="公开安全口径"
+        caption="不展示真实姓名和敏感联系方式。"
         tone="pop"
       />
     </div>
@@ -52,73 +61,69 @@ const featuredArticles = articles.filter((article) => article.data.featured).sli
 
   <div class="save-loader" data-save-loader aria-hidden="true">
     <div class="loader-window">
-      <div class="loader-title">NOW LOADING SAVE FILE</div>
+      <div class="loader-title">NOW LOADING GROWTH ROUTE</div>
       <div class="loader-line">
         <span></span>
       </div>
-      <div class="loader-meta">Chapter 02 · Growth Route · Checkpoint Sync</div>
+      <div class="loader-meta">2023 → 2024 → 2025-2026 · AI Application Route</div>
     </div>
   </div>
 
   <section class="section">
-    <SectionHeading title="存档槽" subtitle="用轻量游戏化结构记录不同层次的自己。" />
+    <SectionHeading title="成长存档槽" subtitle="用轻量游戏化结构记录不同阶段的自己。" />
     <div class="save-slots">
       <div class="save-slot">
         <strong>Slot 01 · 当前章节</strong>
         <span class="small">{profile.currentChapter}</span>
       </div>
       <div class="save-slot">
-        <strong>Slot 02 · 成长路线</strong>
-        <span class="small">阶段、转折、项目和复盘会被连接起来。</span>
+        <strong>Slot 02 · 技术主线</strong>
+        <span class="small">RAG、Agent、LLM 微调、多模态文档理解与垂直领域 AI 应用。</span>
       </div>
       <div class="save-slot">
-        <strong>Slot 03 · 低调展示</strong>
-        <span class="small">求职信息存在，但不会压过个人叙事。</span>
+        <strong>Slot 03 · 公开展示</strong>
+        <span class="small">适合求职和长期记录，不展示真实姓名，保留公开联系方式与技术侧内容。</span>
       </div>
     </div>
   </section>
 
   <section class="section">
-    <SectionHeading title="表情贴纸" subtitle="把动漫感放进页面的小情绪里。" />
-    <div class="sticker-strip">
-      <img src="/assets/generated/stickers/smile.png" alt="温柔浅笑：适合放在当前状态旁边" title="温柔浅笑" />
-      <img src="/assets/generated/stickers/stars.png" alt="惊喜星星眼：适合代表新发现" title="惊喜星星眼" />
-      <img src="/assets/generated/stickers/peace.png" alt="比耶眨眼：适合代表阶段达成" title="比耶眨眼" />
-    </div>
-  </section>
-
-  <section class="section">
-    <SectionHeading title="成长路线" subtitle="像章节地图一样，把变化讲清楚。" />
+    <SectionHeading title="成长路线" subtitle="从校园工程感到 AI 应用系统，把变化写成 checkpoint。" />
     <div class="timeline">
-      {growthNodes.slice(0, 3).map((node) => (
+      {growthNodes.map((node) => (
         <article class="timeline-item">
           <div class="timeline-head">
             <div>
               <div class="chips">
-                <span class="chip">{node.chapter}</span>
+                <span class="chip">{node.grade}</span>
                 <span class="chip">{node.timeRange}</span>
               </div>
-              <h3>{node.title}</h3>
+              <h3>{node.summary}</h3>
             </div>
-            <span class="small">{node.keywords.join(" · ")}</span>
+            <span class="small">{node.keywords.slice(1, 4).join(" · ")}</span>
           </div>
-          <p class="meta">{node.summary}</p>
+          <p class="meta">{node.mood}</p>
         </article>
       ))}
     </div>
   </section>
 
   <section class="section">
-    <SectionHeading title="精选项目" subtitle="项目是成长的证据，不是单纯的展示墙。" />
+    <SectionHeading title="精选项目" subtitle="优先展示能说明 AI 应用交付能力的项目。" />
     <div class="grid projects">
-      {projects.filter((project) => project.featured).map((project) => (
+      {featuredProjects.map((project) => (
         <article class="card">
           <div class="chips">
-            {project.techStack.map((tech) => <span class="chip">{tech}</span>)}
+            <span class="chip">{project.period}</span>
+            {project.techStack.slice(0, 4).map((tech) => <span class="chip">{tech}</span>)}
           </div>
-          <h3>{project.title}</h3>
-          <p class="meta">{project.description}</p>
-          <p class="small">{project.reflection}</p>
+          <h3>{project.name}</h3>
+          <p class="meta">{project.summary}</p>
+          <p class="small">{project.role}</p>
+          <div class="links">
+            <a class="ghost-link" href={withBase(`/projects/#${project.id}`)}>查看档案</a>
+            {project.url && <a class="ghost-link" href={project.url} target="_blank" rel="noreferrer">GitHub</a>}
+          </div>
         </article>
       ))}
     </div>
@@ -128,27 +133,28 @@ const featuredArticles = articles.filter((article) => article.data.featured).sli
     <div class="section-header">
       <div>
         <h2>最近文章</h2>
-        <div class="muted">先放占位文章，后续再换成真实内容。</div>
+        <div class="muted">技术复盘、日常实验和创作内容都会按时间归档。</div>
       </div>
-      <a class="ghost-link" href="/articles/">进入文章列表 →</a>
+      <a class="ghost-link" href={withBase("/articles/")}>进入文章归档 →</a>
     </div>
     <div class="grid articles">
-      {featuredArticles.map((article) => (
+      {latestArticles.map((article) => (
         <article class="article-card">
           <div class="chips">
             <span class="chip">{article.data.category}</span>
-            <span class="chip">{article.data.readingTime}</span>
+            {article.data.tone && <span class="chip">{article.data.tone}</span>}
+            <span class="chip">{getArticleReadingTime(article)}</span>
           </div>
           <h3>{article.data.title}</h3>
-          <p class="meta">{article.data.description}</p>
-          <a class="ghost-link" href={`/articles/${article.slug}/`}>阅读全文 →</a>
+          <p class="meta">{getArticleSummary(article)}</p>
+          <a class="ghost-link" href={withBase(`/articles/${article.slug}/`)}>阅读全文 →</a>
         </article>
       ))}
     </div>
   </section>
 
   <section class="section">
-    <SectionHeading title="Skill Tree" subtitle="能力树和兴趣的轻量档案。" />
+    <SectionHeading title="Skill Tree" subtitle="能力树和兴趣区一起保留，记录真实路线而不是只列关键词。" />
     <div class="grid two">
       <div class="panel stack">
         {skills.map((skill) => (
@@ -163,7 +169,7 @@ const featuredArticles = articles.filter((article) => article.data.featured).sli
         ))}
       </div>
       <div class="panel">
-        <div class="muted">兴趣</div>
+        <div class="muted">兴趣 / 风格</div>
         <div class="chips" style="margin-top: 12px;">
           {interests.map((item) => <span class="chip">{item}</span>)}
         </div>
@@ -179,7 +185,8 @@ const featuredArticles = articles.filter((article) => article.data.featured).sli
   loadButton?.addEventListener("click", () => {
     loader?.classList.add("is-active");
     window.setTimeout(() => {
-      window.location.href = "/growth/";
+      window.location.href =
+        loadButton.getAttribute("data-target") || loadButton.getAttribute("data-fallback") || window.location.href;
     }, 1150);
   });
 </script>

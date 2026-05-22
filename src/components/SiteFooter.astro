@@ -1,5 +1,6 @@
 ---
 import profileData from "../data/profile.json";
+import { withBase } from "../lib/paths";
 
 const { profile } = profileData;
 ---
@@ -12,9 +13,15 @@ const { profile } = profileData;
     </div>
     <div class="links" aria-label="联系链接">
       {profile.quietLinks.map((link) => (
-        <a href={link.href}>{link.label}</a>
+        <a
+          href={link.href}
+          target={link.href.startsWith("http") ? "_blank" : undefined}
+          rel={link.href.startsWith("http") ? "noreferrer" : undefined}
+        >
+          {link.label}
+        </a>
       ))}
-      <a href="/admin/index.html">内容管理</a>
+      <a href={withBase("/admin/")}>内容管理</a>
     </div>
   </div>
 </footer>

@@ -59,7 +59,7 @@ body {
   background:
     linear-gradient(90deg, rgba(247, 249, 252, 0.72), rgba(247, 249, 252, 0.28)),
     linear-gradient(0deg, rgba(247, 249, 252, 0.38), rgba(247, 249, 252, 0.08)),
-    url("/assets/generated/hero-archive-bg.png") center center / cover no-repeat;
+    var(--archive-bg-image) center center / cover no-repeat;
   opacity: 0.5;
   mix-blend-mode: multiply;
 }
@@ -127,7 +127,7 @@ body {
   background:
     linear-gradient(90deg, rgba(8, 17, 27, 0.82), rgba(8, 17, 27, 0.34)),
     linear-gradient(0deg, rgba(8, 17, 27, 0.5), rgba(8, 17, 27, 0.18)),
-    url("/assets/generated/hero-archive-bg.png") center center / cover no-repeat;
+    var(--archive-bg-image) center center / cover no-repeat;
   opacity: 0.5;
   mix-blend-mode: screen;
 }
@@ -242,6 +242,8 @@ img {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  color: inherit;
+  text-decoration: none;
 }
 
 .brand strong {
@@ -1321,10 +1323,91 @@ img {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  align-items: center;
 }
 
 .links a {
   color: var(--muted);
+}
+
+.links a[href*="github.com"],
+.ghost-link[href*="github.com"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, var(--border));
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg-elevated));
+  color: var(--accent);
+  font-weight: 700;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease;
+}
+
+.links a[href*="github.com"]::after,
+.ghost-link[href*="github.com"]::after {
+  content: "↗";
+  color: var(--accent-2);
+  font-size: 0.86em;
+  line-height: 1;
+}
+
+.links a[href*="github.com"]:hover,
+.links a[href*="github.com"]:focus-visible,
+.ghost-link[href*="github.com"]:hover,
+.ghost-link[href*="github.com"]:focus-visible {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent-2) 58%, var(--border));
+  background: color-mix(in srgb, var(--accent-2) 14%, var(--bg-elevated));
+  color: var(--text);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-2) 16%, transparent);
+  outline: none;
+}
+
+.clean-list {
+  margin: 8px 0 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.clean-list li + li {
+  margin-top: 6px;
+}
+
+.project-card {
+  align-content: start;
+}
+
+.project-meta-grid {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  background: var(--bg-soft);
+}
+
+.notice {
+  margin: 18px 0;
+  padding: 14px 16px;
+  border: 1px solid color-mix(in srgb, var(--accent-2) 46%, var(--border));
+  border-radius: 8px;
+  color: var(--text);
+  background: color-mix(in srgb, var(--accent-2) 12%, var(--bg-soft));
+}
+
+.article-relations {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0;
 }
 
 .page-arrows {

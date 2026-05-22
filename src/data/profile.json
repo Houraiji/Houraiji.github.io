@@ -1,47 +1,90 @@
 {
   "profile": {
-    "displayName": "你的名字",
-    "handle": "Save File 02",
-    "shortIntro": "一个把学习、项目和思考整理成成长存档的人。",
-    "currentChapter": "Chapter 02: 正在建立自己的技术与表达系统",
-    "currentFocus": ["前端工程", "长期写作", "项目复盘", "成长存档"],
-    "status": "当前存档：持续记录，慢慢成型",
+    "displayName": "Houraiji",
+    "handle": "Houraiji",
+    "shortIntro": "2022 级本科，2026 届，关注 AI 应用开发、RAG、Agent 和垂直领域大模型工程，正在把项目复盘和成长路线整理成公开存档。",
+    "currentChapter": "大四 2025-2026：把知识库、微调和安全治理收束成可展示的 Agent 系统",
+    "currentFocus": [
+      "AI 应用开发",
+      "RAG / Agent",
+      "LLM 微调",
+      "多模态文档理解",
+      "垂直领域应用"
+    ],
+    "status": "当前存档：从工程基础走向可交付的 AI 应用系统",
     "quietLinks": [
       {
         "label": "GitHub",
-        "href": "https://github.com/"
+        "href": "https://github.com/Houraiji"
       },
       {
         "label": "Email",
-        "href": "mailto:hello@example.com"
+        "href": "mailto:houraiji@foxmail.com"
+      }
+    ],
+    "facts": [
+      {
+        "label": "GitHub ID",
+        "value": "Houraiji"
       },
       {
-        "label": "Resume",
-        "href": "#"
+        "label": "邮箱",
+        "value": "houraiji@foxmail.com"
+      },
+      {
+        "label": "学校",
+        "value": "成都信息工程大学"
+      },
+      {
+        "label": "专业",
+        "value": "计算机科学与技术"
+      },
+      {
+        "label": "学习阶段",
+        "value": "2022 级本科，2026 届"
       }
-    ]
+    ],
+    "narrative": "记录一个普通学生从工程基础摸到 AI 应用系统的路线，中途夹杂项目复盘、技术笔记、日常吐槽和一点点中二浓度。",
+    "publicNote": "这份资料用于公开博客展示：不展示真实姓名、敏感联系方式和私人信息；学校、专业、邮箱、GitHub 与项目经历采用适合公开讨论的技术侧口径。"
   },
   "skills": [
     {
-      "name": "前端基础",
+      "name": "Python / SQL / Linux",
+      "level": 76,
+      "note": "AI 应用开发、数据处理和基础部署的日常工具链。"
+    },
+    {
+      "name": "RAG / Agent 工程",
+      "level": 78,
+      "note": "围绕检索增强、工具调用、引用溯源和任务链路构建应用。"
+    },
+    {
+      "name": "LLM 微调与对齐",
+      "level": 70,
+      "note": "使用 SFT、LoRA/QLoRA、DPO 等方法做垂直领域模型适配。"
+    },
+    {
+      "name": "文档解析与多模态",
       "level": 72,
-      "note": "页面结构、组件拆分、交互细节"
+      "note": "关注 MinerU、VLM、OCR、YOLO 与文档知识入库链路。"
     },
     {
-      "name": "工程习惯",
-      "level": 58,
-      "note": "版本管理、任务拆解、复盘意识"
-    },
-    {
-      "name": "表达记录",
-      "level": 64,
-      "note": "把过程写清楚，把变化留下来"
-    },
-    {
-      "name": "产品感知",
-      "level": 46,
-      "note": "从功能走向体验和长期维护"
+      "name": "服务化与部署",
+      "level": 68,
+      "note": "使用 FastAPI、Docker、Redis、向量库和前后端分离工作台交付原型。"
     }
   ],
-  "interests": ["游戏", "动漫", "技术创作", "个人知识库", "安静但持续的成长"]
+  "interests": [
+    "技术复盘",
+    "日轻吐槽",
+    "AI 音频实验",
+    "短篇创作",
+    "校园记忆",
+    "个人知识库"
+  ],
+  "styleNotes": [
+    "写技术时尽量把链路说清楚，不装神秘。",
+    "写日常时允许自己吐槽自己，比如“今天又被 CUDA 上了一课”。",
+    "喜欢把学习过程写成世界线：不是突然变强，而是不断踩坑、修坑、再被新坑教育。"
+  ]
 }

@@ -1,4 +1,6 @@
 ---
+import { withBase, withoutBase } from "../lib/paths";
+
 const pages = [
   { href: "/", label: "首页", short: "Home" },
   { href: "/growth/", label: "成长线", short: "Route" },
@@ -7,7 +9,7 @@ const pages = [
   { href: "/about/", label: "关于", short: "Profile" },
 ];
 
-const pathname = Astro.url.pathname;
+const pathname = withoutBase(Astro.url.pathname);
 const activeIndex = pages.findIndex((page) => {
   if (page.href === "/") return pathname === "/";
   return pathname.startsWith(page.href);
@@ -20,7 +22,7 @@ const next = pages[index + 1];
 
 <nav class="page-arrows" aria-label="页面切换">
   {previous && (
-    <a class="page-arrow page-arrow-left" href={previous.href} aria-label={`上一页：${previous.label}`}>
+    <a class="page-arrow page-arrow-left" href={withBase(previous.href)} aria-label={`上一页：${previous.label}`}>
       <span class="arrow-mark">‹</span>
       <span class="arrow-copy">
         <small>Prev</small>
@@ -29,7 +31,7 @@ const next = pages[index + 1];
     </a>
   )}
   {next && (
-    <a class="page-arrow page-arrow-right" href={next.href} aria-label={`下一页：${next.label}`}>
+    <a class="page-arrow page-arrow-right" href={withBase(next.href)} aria-label={`下一页：${next.label}`}>
       <span class="arrow-copy">
         <small>Next</small>
         <strong>{next.short}</strong>

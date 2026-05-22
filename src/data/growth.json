@@ -1,44 +1,226 @@
 {
+  "owner": "Houraiji",
+  "handle": "Houraiji",
+  "period": "2023-2026",
+  "narrativeTheme": "从工程基础到 AI 应用系统：RAG、微调、多模态文档理解、语音工具和 Agent 平台的学生成长线",
   "growthNodes": [
     {
-      "title": "起点",
-      "chapter": "Chapter 00",
-      "timeRange": "过去的某个阶段",
-      "summary": "这里会写最初为什么开始，以及兴趣是怎样出现的。",
-      "details": "保留给真实经历：动机、环境、第一次认真投入的契机。",
-      "keywords": ["原点", "兴趣", "开始"],
-      "relatedProjects": [],
-      "relatedArticles": ["first-checkpoint"]
+      "title": "从校园工程感开始，先把代码、协作和问题意识捡起来",
+      "chapter": "Chapter 00 ? 大二",
+      "timeRange": "2023",
+      "summary": "从校园工程感开始，先把代码、协作和问题意识捡起来",
+      "details": "这一年更像序章。代码还不够锋利，但已经开始意识到，真正麻烦的不是语法，而是把一个东西做给人用。",
+      "keywords": [
+        "大二",
+        "Git / GitHub",
+        "Java / Spring Boot 基础",
+        "Python 基础",
+        "工程文档阅读"
+      ],
+      "grade": "大二",
+      "year": 2023,
+      "milestones": [
+        "接触 GitHub 与开源项目，开始把学习痕迹留在公开仓库里",
+        "关注校园应用、安卓客户端和后端基础，理解真实用户不是 README 里的理想变量",
+        "在学生工作和课程任务之间练习时间管理，逐渐形成记录问题和复盘的习惯"
+      ],
+      "skills": [
+        "Git / GitHub",
+        "Java / Spring Boot 基础",
+        "Python 基础",
+        "工程文档阅读",
+        "团队协作"
+      ],
+      "relatedProjects": [
+        "SecondClass",
+        "SpringBoot-Learning"
+      ],
+      "relatedArticles": [
+        "2023-03-git-log-before-ai",
+        "2023-05-secondclass-campus-client",
+        "2023-09-from-campus-code-to-ai",
+        "2023-10-debugging-autumn-week",
+        "2023-12-engineering-before-ai"
+      ],
+      "articleRefs": [
+        "articles/2023-03-git-log-before-ai.md",
+        "articles/2023-05-secondclass-campus-client.md",
+        "articles/2023-09-from-campus-code-to-ai.md",
+        "articles/2023-10-debugging-autumn-week.md",
+        "articles/2023-12-engineering-before-ai.md"
+      ],
+      "mood": "这一年更像序章。代码还不够锋利，但已经开始意识到，真正麻烦的不是语法，而是把一个东西做给人用。"
     },
     {
-      "title": "探索期",
-      "chapter": "Chapter 01",
-      "timeRange": "摸索和试错",
-      "summary": "记录尝试不同方向、形成判断标准的过程。",
-      "details": "保留给真实经历：试过什么，放弃过什么，哪些东西留下来了。",
-      "keywords": ["试错", "学习", "方向"],
-      "relatedProjects": [],
-      "relatedArticles": []
+      "title": "第一次把 AI 放进业务现场：文档解析、VLM 和企业知识库",
+      "chapter": "Chapter 01 ? 大三",
+      "timeRange": "2024",
+      "summary": "第一次把 AI 放进业务现场：文档解析、VLM 和企业知识库",
+      "details": "大三的主旋律是第一次被真实业务教育：模型回答得漂亮不够，检索不到证据、图片召不回来、分块一塌糊涂，都会让系统当场掉线。",
+      "keywords": [
+        "大三",
+        "MinerU",
+        "VLM",
+        "文档解析",
+        "智能分块"
+      ],
+      "grade": "大三",
+      "year": 2024,
+      "milestones": [
+        "在企业 AI 知识库实习中参与文档解析模型优化、VLM 图片相关性分类与短摘要生成",
+        "设计基于内容语义和层级信息的智能分块策略，理解 RAG 不是把文档塞进向量库就结束",
+        "开始把 AI 音色转换、动漫配音等兴趣实验当作多模态学习入口"
+      ],
+      "skills": [
+        "MinerU",
+        "VLM",
+        "文档解析",
+        "智能分块",
+        "RAG 评测",
+        "Prompt 调试",
+        "音频处理入门"
+      ],
+      "relatedProjects": [
+        "Absen AI Knowledge Base Internship",
+        "Voice Conversion Lab"
+      ],
+      "relatedArticles": [
+        "2024-02-springboot-route-map",
+        "2024-04-from-crud-to-api-contracts",
+        "2024-06-before-first-rag-internship",
+        "2024-07-first-rag-internship",
+        "2024-09-rag-data-cleaning-notes",
+        "2024-11-voice-conversion-night",
+        "2024-12-multimodal-year-end"
+      ],
+      "articleRefs": [
+        "articles/2024-02-springboot-route-map.md",
+        "articles/2024-04-from-crud-to-api-contracts.md",
+        "articles/2024-06-before-first-rag-internship.md",
+        "articles/2024-07-first-rag-internship.md",
+        "articles/2024-09-rag-data-cleaning-notes.md",
+        "articles/2024-11-voice-conversion-night.md",
+        "articles/2024-12-multimodal-year-end.md"
+      ],
+      "mood": "大三的主旋律是第一次被真实业务教育：模型回答得漂亮不够，检索不到证据、图片召不回来、分块一塌糊涂，都会让系统当场掉线。"
     },
     {
-      "title": "第一次成型",
-      "chapter": "Chapter 02",
-      "timeRange": "能力开始连接",
-      "summary": "从零散学习走向完整项目和更稳定的表达。",
-      "details": "保留给真实经历：代表项目、关键困难、最后学到的东西。",
-      "keywords": ["项目", "系统", "复盘"],
-      "relatedProjects": ["personal-archive"],
-      "relatedArticles": ["project-reflection"]
+      "title": "从 RAG demo 走向完整 AI 应用：检索、记忆、语音、微调和部署",
+      "chapter": "Chapter 02 ? 大四上",
+      "timeRange": "2025",
+      "summary": "从 RAG demo 走向完整 AI 应用：检索、记忆、语音、微调和部署",
+      "details": "这一年开始有工程闭环的味道。也开始懂得，一套 AI 应用最像考试周：模型、数据、服务、部署、显卡驱动，谁都可能突然举手说自己不会。",
+      "keywords": [
+        "大四上",
+        "LangChain",
+        "Chroma",
+        "Redis",
+        "FastAPI"
+      ],
+      "grade": "大四上",
+      "year": 2025,
+      "milestones": [
+        "构建 RAG 智能文档问答系统，支持混合检索、多轮对话记忆、缓存和摘要",
+        "手写轻量 Transformer，用模块化代码拆解注意力、位置编码、前馈网络和训练流程",
+        "开发 Fast Whisper 实时视频翻译插件，尝试把语音识别和浏览器交互结合起来",
+        "参与光伏电力大模型智能体研发，负责文档区域定位、OCR 数据合成、RAG 知识构建和离线 AI 环境部署",
+        "完成中医药健康咨询助手，串联数据处理、模型微调、FastAPI、Gradio 和 Docker"
+      ],
+      "skills": [
+        "LangChain",
+        "Chroma",
+        "Redis",
+        "FastAPI",
+        "Docker",
+        "Whisper",
+        "Transformer",
+        "YOLOv11",
+        "OCR 数据合成",
+        "SFT"
+      ],
+      "relatedProjects": [
+        "rag-smart-chat",
+        "rag-chatbot-doc",
+        "light-transformer",
+        "fast-whisper-plugin",
+        "TCM-Health-Bot",
+        "Chuangshi Huaruan PV Agent Internship"
+      ],
+      "relatedArticles": [
+        "2025-02-langchain-first-notes",
+        "2025-04-chroma-retrieval-evaluation",
+        "2025-05-redis-memory-and-cache",
+        "2025-06-rag-smart-chat-retrospective",
+        "2025-07-light-transformer-notes",
+        "2025-07-fast-whisper-plugin-story",
+        "2025-08-pv-agent-field-notes",
+        "2025-09-tcm-health-bot",
+        "2025-10-sft-dataset-to-demo",
+        "2025-12-knowbot-agent-trace"
+      ],
+      "articleRefs": [
+        "articles/2025-02-langchain-first-notes.md",
+        "articles/2025-04-chroma-retrieval-evaluation.md",
+        "articles/2025-05-redis-memory-and-cache.md",
+        "articles/2025-06-rag-smart-chat-retrospective.md",
+        "articles/2025-07-light-transformer-notes.md",
+        "articles/2025-07-fast-whisper-plugin-story.md",
+        "articles/2025-08-pv-agent-field-notes.md",
+        "articles/2025-09-tcm-health-bot.md",
+        "articles/2025-10-sft-dataset-to-demo.md",
+        "articles/2025-12-knowbot-agent-trace.md"
+      ],
+      "mood": "这一年开始有工程闭环的味道。也开始懂得，一套 AI 应用最像考试周：模型、数据、服务、部署、显卡驱动，谁都可能突然举手说自己不会。"
     },
     {
-      "title": "正在继续",
-      "chapter": "Chapter 03",
-      "timeRange": "现在",
-      "summary": "把成长变成可持续记录的系统。",
-      "details": "保留给真实经历：当前关注、下一阶段目标、正在突破的问题。",
-      "keywords": ["现在", "长期", "记录"],
-      "relatedProjects": ["growth-blog"],
-      "relatedArticles": []
+      "title": "把知识库、微调和安全治理收束成可展示的 Agent 系统",
+      "chapter": "Chapter 03 ? 大四下",
+      "timeRange": "2026",
+      "summary": "把知识库、微调和安全治理收束成可展示的 Agent 系统",
+      "details": "大四下像是把散落在各处的技能装订成册。代码还会报错，人生也还没自动补全，但至少知道自己正在往哪个方向训练。",
+      "keywords": [
+        "大四下",
+        "LangGraph",
+        "Agent 编排",
+        "Milvus",
+        "pgvector"
+      ],
+      "grade": "大四下",
+      "year": 2026,
+      "milestones": [
+        "建设 KnowBot 企业知识中台智能体平台，支持企业知识问答、工具调用、引用溯源和 Agent Trace",
+        "建设 KARE-Med 医疗知识检索增强问答系统，强调医疗安全治理、引用证据和日志审计",
+        "整理毕业前的项目线，把技术复盘、校园记忆和创作内容放进个人博客"
+      ],
+      "skills": [
+        "LangGraph",
+        "Agent 编排",
+        "Milvus",
+        "pgvector",
+        "DPO",
+        "RAG 安全治理",
+        "日志审计",
+        "前后端分离工作台"
+      ],
+      "relatedProjects": [
+        "KnowBot",
+        "KARE-Med"
+      ],
+      "relatedArticles": [
+        "2026-01-agent-and-medical-rag",
+        "2026-02-medical-rag-safety-checklist",
+        "2026-03-cache-of-summer",
+        "2026-04-before-graduation-portfolio-cleanup",
+        "2026-05-public-blog-content-pipeline"
+      ],
+      "articleRefs": [
+        "articles/2026-01-agent-and-medical-rag.md",
+        "articles/2026-02-medical-rag-safety-checklist.md",
+        "articles/2026-03-cache-of-summer.md",
+        "articles/2026-04-before-graduation-portfolio-cleanup.md",
+        "articles/2026-05-public-blog-content-pipeline.md"
+      ],
+      "mood": "大四下像是把散落在各处的技能装订成册。代码还会报错，人生也还没自动补全，但至少知道自己正在往哪个方向训练。"
     }
   ]
 }

@@ -1,9 +1,12 @@
 ---
+import { withBase } from "../lib/paths";
+
 const { label = "Archive Buddy", compact = false, src = "/assets/generated/chibi-angel.png" } = Astro.props;
+const imageSrc = withBase(src);
 ---
 
 <aside class:list={["anime-sticker-card", compact && "compact"]} aria-label={label}>
-  <img src={src} alt="动漫风格成长档案贴纸" />
+  <img src={imageSrc} alt="动漫风格成长档案贴纸" />
   <div>
     <strong>{label}</strong>
     <span>陪你把每个 checkpoint 存下来。</span>

@@ -1,0 +1,334 @@
+{
+  "owner": "Houraiji",
+  "generatedFor": "Houraiji personal blog",
+  "projects": [
+    {
+      "id": "secondclass",
+      "name": "SecondClass",
+      "type": "learning_trace",
+      "period": "2023",
+      "source": "GitHub public repository",
+      "url": "https://github.com/Houraiji/SecondClass",
+      "role": "学习与阅读开源项目",
+      "summary": "成都信息工程大学第二课堂安卓客户端相关仓库，适合作为早期校园应用和移动端学习痕迹写入成长路线。",
+      "techStack": [
+        "Android",
+        "校园应用",
+        "开源阅读"
+      ],
+      "highlights": [
+        "从真实校园应用理解用户场景",
+        "为后续做知识库和工具类应用埋下工程意识"
+      ],
+      "blogAngles": [
+        "大二时第一次意识到代码最终要服务具体的人",
+        "校园应用里的需求边界比课堂题更含糊"
+      ],
+      "confidence": "public_repo_metadata"
+    },
+    {
+      "id": "springboot-learning",
+      "name": "SpringBoot-Learning",
+      "type": "learning_trace",
+      "period": "2024",
+      "source": "GitHub public fork",
+      "url": "https://github.com/Houraiji/SpringBoot-Learning",
+      "role": "后端基础学习",
+      "summary": "Spring Boot 教程仓库，用于记录后端服务、接口和工程化基础学习。",
+      "techStack": [
+        "Java",
+        "Spring Boot",
+        "Backend"
+      ],
+      "highlights": [
+        "补齐后端服务和接口设计基础",
+        "为后续 FastAPI、RAG 服务化和前后端分离理解打底"
+      ],
+      "blogAngles": [
+        "从 Java 后端到 AI 服务并不是断层，而是接口、数据和部署能力的迁移"
+      ],
+      "confidence": "public_repo_metadata"
+    },
+    {
+      "id": "absen-ai-knowledge-base-internship",
+      "name": "企业 AI 知识库项目实习",
+      "type": "experience_project",
+      "period": "2024.7-2024.9",
+      "source": "resume",
+      "url": "",
+      "role": "AI 算法实习生",
+      "summary": "参与企业 AI 知识库项目，负责复杂文档解析模型优化、VLM 图片相关性分类、短摘要生成、智能分块和评测数据闭环。",
+      "techStack": [
+        "MinerU",
+        "VLM",
+        "LLM",
+        "RAG",
+        "文档解析",
+        "智能分块"
+      ],
+      "highlights": [
+        "利用 VLM 进行图片相关性分类与摘要生成",
+        "设计语义和层级信息结合的智能分块策略",
+        "参与 FAQ 命中率、图片召回率等评测指标建设"
+      ],
+      "blogAngles": [
+        "RAG 的入口不是向量库，而是文档被正确理解",
+        "图片召回、分块和反馈闭环比想象中更决定体验"
+      ],
+      "confidence": "resume"
+    },
+    {
+      "id": "voice-conversion-lab",
+      "name": "AI 音色转换与动漫配音实验",
+      "type": "supplemental_story",
+      "period": "2024.11",
+      "source": "user requested narrative supplement",
+      "url": "",
+      "role": "个人兴趣实验",
+      "summary": "围绕音频切分、音色转换、字幕对齐和动漫风格配音做的学习型实验，用于补充多模态学习路线，不作为正式上线项目描述。",
+      "techStack": [
+        "音频处理",
+        "Whisper",
+        "Voice Conversion",
+        "字幕对齐",
+        "个人实验"
+      ],
+      "highlights": [
+        "从声音、字幕和角色语气理解多模态交互",
+        "把兴趣实验转化为 AI 工具链学习入口"
+      ],
+      "blogAngles": [
+        "为什么一个深夜配音实验会把人带向语音 AI",
+        "技术失败时的日常吐槽和自我和解"
+      ],
+      "confidence": "supplemental_narrative"
+    },
+    {
+      "id": "rag-smart-chat",
+      "name": "rag-smart-chat",
+      "type": "project",
+      "period": "2025.6",
+      "source": "GitHub README",
+      "url": "https://github.com/Houraiji/rag-smart-chat",
+      "role": "个人项目开发",
+      "summary": "基于 LangChain 的 RAG 智能文档问答系统，支持 PDF/TXT 文档处理、Chroma 向量存储、混合检索、多轮记忆、缓存和 FastAPI 接口。",
+      "techStack": [
+        "LangChain",
+        "RAG",
+        "Chroma",
+        "Redis",
+        "FastAPI",
+        "PDF/TXT 解析"
+      ],
+      "highlights": [
+        "采用向量相似度和关键词权重结合的混合检索策略",
+        "基于 Redis 实现多会话隔离和对话历史记忆",
+        "支持长对话摘要，减少 token 消耗"
+      ],
+      "blogAngles": [
+        "从第一个 RAG demo 里学到的不是炫技，而是上下文管理",
+        "混合检索、缓存和记忆如何让问答系统更像产品"
+      ],
+      "confidence": "github_readme"
+    },
+    {
+      "id": "rag-chatbot-doc",
+      "name": "rag-chatbot-doc",
+      "type": "project",
+      "period": "2025.6",
+      "source": "GitHub public repository",
+      "url": "https://github.com/Houraiji/rag-chatbot-doc",
+      "role": "个人项目开发",
+      "summary": "文档问答相关 RAG 项目仓库，可作为 rag-smart-chat 的相邻实践记录，用于承载文档检索、问答和接口化探索。",
+      "techStack": [
+        "Python",
+        "RAG",
+        "文档问答"
+      ],
+      "highlights": [
+        "延续文档问答方向的工程练习",
+        "和 rag-smart-chat 一起构成早期 RAG 项目组"
+      ],
+      "blogAngles": [
+        "同一类问题为什么值得做不止一个版本",
+        "早期项目命名和目录结构经常暴露学习阶段"
+      ],
+      "confidence": "public_repo_metadata"
+    },
+    {
+      "id": "light-transformer",
+      "name": "light-transformer",
+      "type": "project",
+      "period": "2025.7",
+      "source": "GitHub README",
+      "url": "https://github.com/Houraiji/light-transformer",
+      "role": "个人学习项目",
+      "summary": "基于 PyTorch 的轻量级 Transformer 框架，通过模块化代码实现注意力、位置编码、前馈网络、编码器层和训练流程。",
+      "techStack": [
+        "PyTorch",
+        "Transformer",
+        "Attention",
+        "NLP",
+        "Text Classification"
+      ],
+      "highlights": [
+        "以清晰代码拆解 Transformer 核心组件",
+        "包含模型定义、训练、评估和文本分类示例",
+        "适合写成从黑盒调用到理解结构的技术笔记"
+      ],
+      "blogAngles": [
+        "手写 Transformer 是为了知道自己在调什么",
+        "位置编码和多头注意力的学习路线"
+      ],
+      "confidence": "github_readme"
+    },
+    {
+      "id": "fast-whisper-plugin",
+      "name": "fast-whisper-plugin",
+      "type": "project",
+      "period": "2025.7",
+      "source": "GitHub README",
+      "url": "https://github.com/Houraiji/fast-whisper-plugin",
+      "role": "个人项目开发",
+      "summary": "基于 Fast Whisper 的实时视频翻译浏览器插件，支持视频音频捕获、语音识别、多语言翻译、字幕覆盖和离线模型模式。",
+      "techStack": [
+        "Python",
+        "FastAPI",
+        "Fast Whisper",
+        "Chrome Extension",
+        "Speech Recognition"
+      ],
+      "highlights": [
+        "捕获网页视频音频流并进行本地识别",
+        "支持 tiny/base/small 等模型选择和离线模式",
+        "通过浏览器扩展把 AI 能力嵌入日常观看场景"
+      ],
+      "blogAngles": [
+        "从看视频看不懂到写一个实时字幕插件",
+        "离线模式、模型大小和延迟之间的取舍"
+      ],
+      "confidence": "github_readme"
+    },
+    {
+      "id": "chuangshi-huaruan-pv-agent-internship",
+      "name": "光伏电力大模型智能体研发实习",
+      "type": "experience_project",
+      "period": "2025.7-2025.10",
+      "source": "resume",
+      "url": "",
+      "role": "AI 算法实习生",
+      "summary": "参与光伏电力大模型智能体研发，负责文档解析、OCR 数据合成、RAG 知识构建与离线 AI 环境部署。",
+      "techStack": [
+        "YOLOv11",
+        "OCR",
+        "RAG",
+        "Prompt",
+        "CUDA",
+        "NVIDIA Driver",
+        "数据合成"
+      ],
+      "highlights": [
+        "训练文档区域定位模型，提升扫描版复杂报告版面定位效果",
+        "批量生成合成表格数据，用于专用表格 OCR 模型训练",
+        "参与文档解析到知识入库的链路设计，并完成离线 AI 环境部署"
+      ],
+      "blogAngles": [
+        "文档智能体的第一步是让机器看清文档",
+        "离线部署时，CUDA 环境会认真检查人的耐心"
+      ],
+      "confidence": "resume"
+    },
+    {
+      "id": "tcm-health-bot",
+      "name": "TCM-Health-Bot",
+      "type": "project",
+      "period": "2025.9",
+      "source": "GitHub README",
+      "url": "https://github.com/Houraiji/TCM-Health-Bot",
+      "role": "个人项目开发",
+      "summary": "智能中医药健康咨询助手，基于 Qwen 系列模型进行中医药问答数据全参数微调，并通过 FastAPI、Gradio 和 Docker 完成服务化展示。",
+      "techStack": [
+        "PyTorch",
+        "Hugging Face Transformers",
+        "Qwen",
+        "SFT",
+        "FastAPI",
+        "Gradio",
+        "Docker"
+      ],
+      "highlights": [
+        "实现从数据处理、微调、推理到 Web 服务部署的完整流水线",
+        "支持流式输出和交互式聊天界面",
+        "保留从零训练和断点继续训练两种工作流"
+      ],
+      "blogAngles": [
+        "垂直领域模型为什么需要数据和回答风格一起调整",
+        "把 Notebook 训练结果变成可以访问的应用"
+      ],
+      "confidence": "github_readme"
+    },
+    {
+      "id": "knowbot",
+      "name": "KnowBot",
+      "type": "project",
+      "period": "2025.11-2026.1",
+      "source": "resume and GitHub README",
+      "url": "https://github.com/Houraiji/KnowBot",
+      "role": "项目负责人",
+      "summary": "企业知识中台智能体平台，面向企业内部知识问答、业务检索和工单协同，支持 Agent + RAG + 工具调用、引用溯源、会话管理和 Docker 部署。",
+      "techStack": [
+        "FastAPI",
+        "LangChain",
+        "LangGraph",
+        "RAG",
+        "Agent",
+        "Docker",
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "highlights": [
+        "设计查询改写、意图识别、检索召回、工具路由和答案生成链路",
+        "提供引用来源、匹配词和 Agent Trace 轨迹",
+        "前后端分离展示企业知识中台看板"
+      ],
+      "blogAngles": [
+        "Agent 平台不是一个聊天框，而是一条可追踪的任务链",
+        "如何把 RAG、工具调用和企业业务场景放在一起"
+      ],
+      "confidence": "resume_and_github_readme"
+    },
+    {
+      "id": "kare-med",
+      "name": "KARE-Med",
+      "type": "project",
+      "period": "2025.11-2026.2",
+      "source": "resume and GitHub README",
+      "url": "https://github.com/Houraiji/KARE-Med",
+      "role": "个人项目开发",
+      "summary": "医疗知识检索增强问答系统，结合大模型微调、DPO 对齐、pgvector 检索增强、安全治理、日志审计和前端工作台。",
+      "techStack": [
+        "FastAPI",
+        "React",
+        "TypeScript",
+        "Qwen",
+        "SFT",
+        "DPO",
+        "RAG",
+        "pgvector",
+        "Pydantic",
+        "Docker"
+      ],
+      "highlights": [
+        "保留 Qwen 风格 SFT 与 DPO 训练脚本入口",
+        "医疗知识块支持检索、引用和证据展示",
+        "内置急症意图拦截、高风险提示、风险等级和审计日志"
+      ],
+      "blogAngles": [
+        "医疗 RAG 的核心不是回答更像医生，而是知道什么时候不能乱答",
+        "安全治理、引用溯源和可观测性如何让 AI 应用更可信"
+      ],
+      "confidence": "resume_and_github_readme"
+    }
+  ]
+}

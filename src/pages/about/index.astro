@@ -3,50 +3,63 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import SectionHeading from "../../components/SectionHeading.astro";
 import StickerNote from "../../components/StickerNote.astro";
 import profileData from "../../data/profile.json";
+import { withBase } from "../../lib/paths";
 
-const { profile, skills, interests } = profileData;
+const { profile, skills, interests, styleNotes } = profileData;
+const contactLinks = profile.quietLinks ?? [];
 ---
 
-<BaseLayout title="关于" description="个人资料、能力树、兴趣和低调联系方式。">
+<BaseLayout title="个人资料" description="Houraiji 的公开安全版个人资料、能力树、兴趣和联系方式。">
   <section class="article">
-    <div class="eyebrow">Character File · 关于我</div>
+    <div class="eyebrow">Character File · 公开资料</div>
     <h1>{profile.displayName}</h1>
     <p class="meta">{profile.shortIntro}</p>
   </section>
 
   <section class="section character-card">
     <div class="character-portrait">
-      <img src="/assets/generated/anime-archive-assistant.png" alt="个人角色档案立绘" />
+      <img src={withBase("/assets/generated/anime-archive-assistant.png")} alt="个人角色档案立绘" />
       <div class="portrait-caption">ARCHIVE ID · {profile.handle}</div>
     </div>
     <div class="character-info">
-      <SectionHeading title="Profile Card" subtitle="保留一点角色档案感，但不喧宾夺主。" />
+      <SectionHeading title="Profile Card" subtitle="公开展示版资料：恢复学校、专业和学习阶段，但不展示真实姓名。" />
       <div class="profile-grid">
-        <div class="profile-field">
-          <span>姓名</span>
-          <strong>{profile.displayName}</strong>
-        </div>
-        <div class="profile-field">
-          <span>状态</span>
-          <strong>{profile.status}</strong>
-        </div>
+        {(profile.facts ?? []).map((fact) => (
+          <div class="profile-field">
+            <span>{fact.label}</span>
+            <strong>{fact.value}</strong>
+          </div>
+        ))}
         <div class="profile-field wide">
-          <span>当前章节</span>
-          <strong>{profile.currentChapter}</strong>
-        </div>
-        <div class="profile-field wide">
-          <span>当前关注</span>
+          <span>方向关键词</span>
           <div class="chips">
             {profile.currentFocus.map((item) => <span class="chip">{item}</span>)}
           </div>
         </div>
         <div class="profile-field wide">
-          <span>联系</span>
+          <span>联系方式</span>
           <div class="links">
-            {profile.quietLinks.map((link) => <a class="ghost-link" href={link.href}>{link.label}</a>)}
+            {contactLinks.map((link) => (
+              <a
+                class="ghost-link"
+                href={link.href}
+                target={link.href.startsWith("http") ? "_blank" : undefined}
+                rel={link.href.startsWith("http") ? "noreferrer" : undefined}
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <SectionHeading title="个人定位" subtitle="从工程基础到 AI 应用系统的路线记录。" />
+    <div class="panel stack">
+      <p class="meta">{profile.narrative}</p>
+      <p class="small">{profile.publicNote}</p>
     </div>
   </section>
 
@@ -67,23 +80,28 @@ const { profile, skills, interests } = profileData;
   </section>
 
   <section class="section">
-    <SectionHeading title="Interests" subtitle="把喜欢的东西保留在结构里。" />
+    <SectionHeading title="Interests & Style" subtitle="技术主线之外，也保留一点轻吐槽、日轻和创作内容。" />
     <div class="sticker-row">
       <StickerNote
         src="/assets/generated/stickers/cat-paw.png"
-        title="猫耳喵喵拳"
-        caption="游戏和动漫兴趣区专属。"
+        title="技术复盘"
+        caption="尽量把链路说清楚，不装神秘。"
         tone="pop"
       />
       <StickerNote
         src="/assets/generated/stickers/cat-smirk.png"
-        title="猫耳歪头坏笑"
-        caption="一点点个人风格。"
+        title="日常吐槽"
+        caption="允许自己被 CUDA 和配置文件教育。"
         tone="cute"
       />
     </div>
-    <div class="chips">
-      {interests.map((item) => <span class="chip">{item}</span>)}
+    <div class="panel stack">
+      <div class="chips">
+        {interests.map((item) => <span class="chip">{item}</span>)}
+      </div>
+      <ul class="clean-list">
+        {(styleNotes ?? []).map((note) => <li>{note}</li>)}
+      </ul>
     </div>
   </section>
 </BaseLayout>

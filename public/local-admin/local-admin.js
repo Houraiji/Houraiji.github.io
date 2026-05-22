@@ -80,6 +80,20 @@ const renderQuietLinkRow = (link = {}) => `
   </div>
 `;
 
+const renderFactRow = (fact = {}) => `
+  <div class="repeater-row">
+    <label>
+      <span>字段名</span>
+      <input data-field="label" value="${escapeHtml(fact.label)}" placeholder="学校" />
+    </label>
+    <label>
+      <span>内容</span>
+      <input data-field="value" value="${escapeHtml(fact.value)}" placeholder="公开展示内容" />
+    </label>
+    <button type="button" class="button-compact" data-remove-row>删除</button>
+  </div>
+`;
+
 const renderSkillRow = (skill = {}) => `
   <div class="repeater-row skill-row">
     <label>
@@ -102,9 +116,11 @@ const renderProfileEditor = async () => {
   let data = await request("/profile");
   const profile = data.profile || {};
   const quietLinks = Array.isArray(profile.quietLinks) ? profile.quietLinks : [];
+  const facts = Array.isArray(profile.facts) ? profile.facts : [];
   const skills = Array.isArray(data.skills) ? data.skills : [];
   const currentFocus = Array.isArray(profile.currentFocus) ? profile.currentFocus : [];
   const interests = Array.isArray(data.interests) ? data.interests : [];
+  const styleNotes = Array.isArray(data.styleNotes) ? data.styleNotes : [];
 
   editorRoot.innerHTML = `
     <div class="toolbar">
@@ -145,6 +161,24 @@ const renderProfileEditor = async () => {
             <span>当前关注</span>
             <textarea id="profile-current-focus" class="textarea-compact">${escapeHtml(currentFocus.join("\n"))}</textarea>
           </label>
+          <label class="field-full">
+            <span>个人定位</span>
+            <textarea id="profile-narrative" class="textarea-compact">${escapeHtml(profile.narrative)}</textarea>
+          </label>
+          <label class="field-full">
+            <span>公开口径说明</span>
+            <textarea id="profile-public-note" class="textarea-compact">${escapeHtml(profile.publicNote)}</textarea>
+          </label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="toolbar">
+          <h3>公开字段</h3>
+          <button type="button" id="add-fact">添加字段</button>
+        </div>
+        <div id="profile-facts" class="repeater">
+          ${facts.map(renderFactRow).join("") || renderFactRow()}
         </div>
       </section>
 
@@ -174,6 +208,10 @@ const renderProfileEditor = async () => {
           <span>兴趣列表</span>
           <textarea id="profile-interests" class="textarea-compact">${escapeHtml(interests.join("\n"))}</textarea>
         </label>
+        <label>
+          <span>风格说明</span>
+          <textarea id="profile-style-notes" class="textarea-compact">${escapeHtml(styleNotes.join("\n"))}</textarea>
+        </label>
       </section>
       <div id="editor-status" class="status"></div>
     </form>
@@ -188,6 +226,10 @@ const renderProfileEditor = async () => {
 
   byId("add-quiet-link").addEventListener("click", () => {
     byId("quiet-links").insertAdjacentHTML("beforeend", renderQuietLinkRow());
+  });
+
+  byId("add-fact").addEventListener("click", () => {
+    byId("profile-facts").insertAdjacentHTML("beforeend", renderFactRow());
   });
 
   byId("add-skill").addEventListener("click", () => {
@@ -217,6 +259,13 @@ const renderProfileEditor = async () => {
       }))
       .filter((skill) => skill.name || skill.note);
 
+    const nextFacts = [...document.querySelectorAll("#profile-facts .repeater-row")]
+      .map((row) => ({
+        label: row.querySelector('[data-field="label"]').value.trim(),
+        value: row.querySelector('[data-field="value"]').value.trim(),
+      }))
+      .filter((fact) => fact.label || fact.value);
+
     const nextData = {
       ...data,
       profile: {
@@ -228,9 +277,13 @@ const renderProfileEditor = async () => {
         currentFocus: splitList(byId("profile-current-focus").value),
         status: byId("profile-status").value.trim(),
         quietLinks: nextQuietLinks,
+        facts: nextFacts,
+        narrative: byId("profile-narrative").value.trim(),
+        publicNote: byId("profile-public-note").value.trim(),
       },
       skills: nextSkills,
       interests: splitList(byId("profile-interests").value),
+      styleNotes: splitList(byId("profile-style-notes").value),
     };
 
     try {
@@ -383,12 +436,16 @@ const renderNewArticleEditor = () => {
           <input id="new-tags" value="成长线, 复盘" />
         </label>
         <label>
-          <span>阅读时间</span>
-          <input id="new-reading-time" value="3 分钟" />
+          <span>世界线</span>
+          <input id="new-worldline" value="大四下 2026" />
         </label>
-        <label class="checkbox-row">
-          <input id="new-featured" type="checkbox" />
-          <span>设为精选文章</span>
+        <label>
+          <span>语气</span>
+          <input id="new-tone" value="技术复盘" />
+        </label>
+        <label class="field-full">
+          <span>关联项目</span>
+          <input id="new-related-projects" placeholder="KnowBot, KARE-Med" />
         </label>
       </div>
       <label>
@@ -434,8 +491,9 @@ const renderNewArticleEditor = () => {
           description: document.querySelector("#new-description").value.trim(),
           category: document.querySelector("#new-category").value.trim(),
           tags: document.querySelector("#new-tags").value,
-          readingTime: document.querySelector("#new-reading-time").value.trim(),
-          featured: document.querySelector("#new-featured").checked,
+          worldline: document.querySelector("#new-worldline").value.trim(),
+          tone: document.querySelector("#new-tone").value.trim(),
+          relatedProjects: document.querySelector("#new-related-projects").value,
           content: document.querySelector("#new-content").value,
         }),
       });

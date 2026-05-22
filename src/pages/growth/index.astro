@@ -4,31 +4,40 @@ import SectionHeading from "../../components/SectionHeading.astro";
 import AnimeSticker from "../../components/AnimeSticker.astro";
 import StickerNote from "../../components/StickerNote.astro";
 import growthData from "../../data/growth.json";
+import projectsData from "../../data/projects.json";
+import { articleRefToSlug, findProjectByRef } from "../../lib/content";
+import { withBase } from "../../lib/paths";
 
-const { growthNodes } = growthData;
+const { growthNodes, narrativeTheme, period } = growthData;
+const { projects } = projectsData;
+
+const projectInfo = (ref: string) => {
+  const project = findProjectByRef(projects, ref);
+  return project ? { label: project.name, href: withBase(`/projects/#${project.id}`) } : { label: ref, href: "" };
+};
 ---
 
-<BaseLayout title="成长线" description="按章节和节点记录的个人成长路线。">
+<BaseLayout title="成长路线 · 大四 2025-2026" description="按大二 2023、大三 2024、大四 2025-2026 梳理的个人成长路线。">
   <section class="article">
-    <div class="eyebrow">Route Map · Checkpoints</div>
-    <h1>成长路线图</h1>
-    <p class="meta">把真实经历整理成章节和 checkpoint：不是流水账，而是记录每次改变发生在哪里。</p>
+    <div class="eyebrow">Route Map · {period}</div>
+    <h1>成长路线：2023 → 2024 → 大四 2025-2026</h1>
+    <p class="meta">{narrativeTheme}</p>
   </section>
 
   <section class="section">
-    <SectionHeading title="Checkpoint Log" subtitle="后续每个节点都可以展开成故事、项目和复盘。" />
+    <SectionHeading title="Checkpoint Log" subtitle="每个阶段都保留主题、里程碑、技能、关联项目和文章入口。" />
     <AnimeSticker label="Route Navigator" src="/assets/generated/chibi-guide.png" compact />
     <div class="sticker-row">
       <StickerNote
         src="/assets/generated/stickers/fist.png"
-        title="开心攥拳"
-        caption="适合放在突破节点旁。"
+        title="突破节点"
+        caption="从能跑，到能解释、能交付。"
         tone="cute"
       />
       <StickerNote
         src="/assets/generated/stickers/question.png"
-        title="疑惑问号"
-        caption="迷茫期也要被记录。"
+        title="真实路线"
+        caption="迷茫、踩坑和复盘都会被记录。"
       />
     </div>
     <div class="route-map">
@@ -40,15 +49,48 @@ const { growthNodes } = growthData;
           <div class="timeline-head">
             <div>
               <div class="chips">
-                <span class="chip">{node.chapter}</span>
+                <span class="chip">{node.grade}</span>
                 <span class="chip">{node.timeRange}</span>
               </div>
-              <h3>{node.title}</h3>
+              <h3>{node.summary}</h3>
             </div>
-            <span class="small">{node.keywords.join(" · ")}</span>
+            <span class="small">{node.skills.slice(0, 3).join(" · ")}</span>
           </div>
-          <p class="meta">{node.summary}</p>
-          <p class="small">{node.details}</p>
+          <p class="meta">{node.mood}</p>
+          <div class="stack">
+            <div>
+              <strong>阶段里程碑</strong>
+              <ul class="clean-list">
+                {node.milestones.map((milestone) => <li>{milestone}</li>)}
+              </ul>
+            </div>
+            <div>
+              <strong>技能标签</strong>
+              <div class="chips">
+                {node.skills.map((skill) => <span class="chip">{skill}</span>)}
+              </div>
+            </div>
+            <div>
+              <strong>关联项目</strong>
+              <div class="links">
+                {node.relatedProjects.map((ref) => {
+                  const project = projectInfo(ref);
+                  return project.href
+                    ? <a class="ghost-link" href={project.href}>{project.label}</a>
+                    : <span class="small">{project.label}</span>;
+                })}
+              </div>
+            </div>
+            <div>
+              <strong>相关文章</strong>
+              <div class="links">
+                {(node.articleRefs ?? node.relatedArticles).map((ref) => {
+                  const slug = articleRefToSlug(ref);
+                  return <a class="ghost-link" href={withBase(`/articles/${slug}/`)}>{slug}</a>;
+                })}
+              </div>
+            </div>
+          </div>
         </article>
       ))}
     </div>

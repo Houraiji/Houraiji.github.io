@@ -4,6 +4,7 @@ import SectionHeading from "../../components/SectionHeading.astro";
 import ArticleCard from "../../components/ArticleCard.astro";
 import AnimeSticker from "../../components/AnimeSticker.astro";
 import StickerNote from "../../components/StickerNote.astro";
+import { withBase } from "../../lib/paths";
 import { getCollection } from "astro:content";
 
 const articles = (await getCollection("articles")).sort(
@@ -12,40 +13,43 @@ const articles = (await getCollection("articles")).sort(
 const categories = ["全部", ...new Set(articles.map((article) => article.data.category))];
 ---
 
-<BaseLayout title="文章" description="文章列表与章节化的成长札记。">
+<BaseLayout title="文章归档" description="技术复盘、日常实验、成长记录和短篇创作的文章归档。">
   <section class="article">
-    <div class="eyebrow">Notes Library · 文章札记</div>
-    <h1>札记图书馆</h1>
-    <p class="meta">文章会承载更细的思考、复盘和阶段记录。现在先用占位内容验证阅读体验。</p>
+    <div class="eyebrow">Notes Library · 文章归档</div>
+    <h1>文章归档</h1>
+    <p class="meta">
+      这里收纳技术复盘、项目笔记、日常实验和短篇小说。技术文章保持清晰专业，日常文章允许一点轻吐槽，
+      创作内容会明确标注，不和真实经历混在一起。
+    </p>
   </section>
 
   <section class="section">
-    <SectionHeading title="分类" subtitle="轻量分类，先服务阅读和未来扩展。" />
+    <SectionHeading title="分类" subtitle="按内容类型快速辨认文章：技术、日常、项目复盘和创作。" />
     <div class="library-tabs">
       {categories.map((category) => <span>{category}</span>)}
     </div>
   </section>
 
   <section class="section">
-    <SectionHeading title="文章列表" subtitle="文章详情页已连通。" />
+    <SectionHeading title="文章列表" subtitle={`按日期倒序发布，共 ${articles.length} 篇真实内容。`} />
     <AnimeSticker label="Library Keeper" src="/assets/generated/chibi-devil.png" compact />
     <div class="sticker-row">
       <StickerNote
         src="/assets/generated/stickers/chin.png"
-        title="托腮玩味"
-        caption="适合陪着长文和思考。"
+        title="技术复盘"
+        caption="把链路讲清楚，而不是只留下结论。"
       />
       <StickerNote
         src="/assets/generated/stickers/tired.png"
-        title="疲惫叹气"
-        caption="复盘写累了也算成长。"
+        title="日常吐槽"
+        caption="踩坑也算成长，只是当时不太快乐。"
         tone="cute"
       />
     </div>
     <div class="library-shelf">
       {articles.map((article) => (
         <div class="book-card">
-          <ArticleCard article={article} href={`/articles/${article.slug}/`} />
+          <ArticleCard article={article} href={withBase(`/articles/${article.slug}/`)} />
         </div>
       ))}
     </div>
