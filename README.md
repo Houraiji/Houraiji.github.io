@@ -79,6 +79,7 @@
 
 - 不走线上登录流程
 - 面向当前项目本地使用
+- 生产构建会自动移除 `/admin` 本地后台，避免把本地编辑页发布到线上
 - 可以直接编辑：
   - `src/data/profile.json`
   - `src/data/growth.json`
@@ -223,6 +224,27 @@ npm run build
 ```text
 dist/
 ```
+
+部署前建议设置环境变量：
+
+```text
+SITE_URL=https://你的域名
+BASE_PATH=/
+```
+
+如果部署到 GitHub Pages 项目站，例如 `https://Houraiji.github.io/houraiji_blog/`，将 `BASE_PATH` 设为 `/houraiji_blog`。
+
+生产构建会在 Astro 构建完成后运行 `scripts/strip-local-admin.mjs`，自动删除 `dist/admin/`。因此线上站点只包含公开博客页面，不包含本地后台和旧的 Decap 配置。
+
+当前推荐的实际更新流程：
+
+1. 本地运行 `npm run dev` 和 `npm run admin:local`
+2. 在 `/admin/index.html` 修改内容
+3. 检查前台页面和 `npm run build`
+4. 提交并推送内容文件
+5. 由 Vercel / Netlify / Cloudflare Pages / GitHub Pages 等平台重新部署静态站点
+
+更详细的部署注意事项见 [docs/deployment.md](docs/deployment.md)。
 
 ## 后续可以继续做的事
 

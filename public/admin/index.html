@@ -168,6 +168,11 @@
         flex-wrap: wrap;
       }
 
+      .button-primary {
+        border-color: rgba(243, 189, 216, 0.44);
+        background: rgba(243, 189, 216, 0.16);
+      }
+
       label {
         display: grid;
         gap: 8px;
@@ -191,6 +196,10 @@
         resize: vertical;
       }
 
+      .textarea-compact {
+        min-height: 110px;
+      }
+
       .json-area {
         min-height: 560px;
       }
@@ -206,6 +215,61 @@
 
       .status.warn {
         color: var(--warn);
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .field-full {
+        grid-column: 1 / -1;
+      }
+
+      .checkbox-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+      }
+
+      .checkbox-row input {
+        width: auto;
+      }
+
+      .form-section {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+        border: 1px solid rgba(146, 171, 255, 0.16);
+        border-radius: 14px;
+        background: rgba(7, 13, 25, 0.38);
+      }
+
+      .form-section h3 {
+        font-size: 16px;
+      }
+
+      .repeater {
+        display: grid;
+        gap: 10px;
+      }
+
+      .repeater-row {
+        display: grid;
+        grid-template-columns: minmax(120px, 0.8fr) minmax(160px, 1fr) auto;
+        gap: 10px;
+        align-items: end;
+      }
+
+      .skill-row {
+        grid-template-columns: minmax(120px, 0.9fr) 110px minmax(180px, 1.2fr) auto;
+      }
+
+      .button-compact {
+        padding: 10px 12px;
+        min-height: 46px;
       }
 
       .hero-side {
@@ -239,6 +303,12 @@
         .json-area {
           min-height: 340px;
         }
+
+        .form-grid,
+        .repeater-row,
+        .skill-row {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
@@ -249,13 +319,14 @@
           <div class="eyebrow">Local Archive Console</div>
           <h1>本地内容管理台</h1>
           <p class="muted" style="margin-top: 10px;">
-            这是当前项目专用的本地编辑页，不需要登录。修改后会直接写入项目里的 JSON 和 Markdown 文件。
+            这是当前项目专用的本地编辑页，不需要登录。修改后会直接写入项目里的 JSON 和 Markdown 文件；生产构建会移除这个后台。
           </p>
           <div class="chips">
             <span class="chip">个人资料</span>
             <span class="chip">成长路线</span>
             <span class="chip">项目档案</span>
             <span class="chip">文章 Markdown</span>
+            <span class="chip">仅本地可用</span>
           </div>
         </div>
         <div class="panel hero-side">
@@ -274,10 +345,11 @@
       <section class="grid">
         <aside class="panel article-list">
           <div class="eyebrow">Sections</div>
-          <button class="list-button is-active" data-section="profile">个人资料 JSON</button>
+          <button class="list-button is-active" data-section="profile">个人资料表单</button>
           <button class="list-button" data-section="growth">成长路线 JSON</button>
           <button class="list-button" data-section="projects">项目档案 JSON</button>
           <button class="list-button" data-section="article-list">文章 Markdown</button>
+          <button class="list-button button-primary" data-section="new-article">新建文章</button>
           <div style="height: 1px; background: var(--line); margin: 8px 0;"></div>
           <div id="article-buttons" class="stack"></div>
         </aside>

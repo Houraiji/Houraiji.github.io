@@ -1,5 +1,5 @@
 import { createServer } from "node:http";
-import { readFile, writeFile, readdir } from "node:fs/promises";
+import { access, readFile, writeFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -46,9 +46,63 @@ const articlePathFromSlug = (slug) => {
   return path.join(files.articlesDir, `${safe}.md`);
 };
 
+const normalizeSlug = (slug) =>
+  String(slug || "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-_]/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+
+const assertArticleSlug = (slug) => {
+  if (!slug) {
+    throw new Error("Slug is required. Use lowercase letters, numbers, hyphens, or underscores.");
+  }
+
+  if (slug.length > 80) {
+    throw new Error("Slug is too long. Keep it under 80 characters.");
+  }
+};
+
+const fileExists = async (filePath) => {
+  try {
+    await access(filePath);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 const parseTitle = (content) => {
   const match = content.match(/title:\s*"([^"]+)"/);
   return match?.[1] || "";
+};
+
+const escapeFrontmatter = (value) => String(value || "").replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+
+const createArticleMarkdown = ({ title, description, category, tags, readingTime, featured, content }) => {
+  const tagList = Array.isArray(tags)
+    ? tags
+    : String(tags || "")
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter(Boolean);
+
+  const today = new Date().toISOString().slice(0, 10);
+
+  return `---
+title: "${escapeFrontmatter(title || "未命名札记")}"
+description: "${escapeFrontmatter(description || "这里写这篇文章的简短摘要。")}"
+date: "${today}"
+category: "${escapeFrontmatter(category || "阶段记录")}"
+tags: ${JSON.stringify(tagList.length ? tagList : ["未分类"])}
+readingTime: "${escapeFrontmatter(readingTime || "3 分钟")}"
+featured: ${Boolean(featured)}
+---
+
+${content || "从这里开始写正文。\n"}
+`;
 };
 
 const collectBody = async (req) => {
@@ -128,6 +182,23 @@ const server = createServer(async (req, res) => {
       }
 
       json(res, 200, articles);
+      return;
+    }
+
+    if (req.method === "POST" && pathname === "/api/articles") {
+      const body = await collectBody(req);
+      const slug = normalizeSlug(body.slug);
+      assertArticleSlug(slug);
+
+      const filePath = articlePathFromSlug(slug);
+      if (await fileExists(filePath)) {
+        text(res, 409, "Article slug already exists");
+        return;
+      }
+
+      const content = createArticleMarkdown(body);
+      await writeFile(filePath, content, "utf8");
+      json(res, 201, { slug, title: body.title || "未命名札记", content });
       return;
     }
 
