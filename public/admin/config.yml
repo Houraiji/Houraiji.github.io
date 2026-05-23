@@ -5,7 +5,7 @@ backend:
   base_url: https://houraiji-decap-oauth.3265908977.workers.dev
   auth_endpoint: auth
 
-site_domain: https://Houraiji.github.io
+site_domain: houraiji.github.io
 display_url: https://Houraiji.github.io
 logo_url: /assets/archive-emblem.svg
 

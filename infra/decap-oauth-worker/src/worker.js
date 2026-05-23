@@ -43,18 +43,34 @@ const fetchGitHubViewer = async (accessToken) => {
   return response.json();
 };
 
-const callbackHtml = (provider, payload, targetOrigin) => `<!doctype html>
+const callbackHtml = (provider, payload, targetOrigin, cmsUrl) => `<!doctype html>
 <html>
   <head><meta charset="utf-8" /></head>
   <body>
+    <p>Authentication complete. Finalizing CMS sign-in...</p>
     <script>
       (function () {
         var message = "authorization:${provider}:success:" + ${JSON.stringify(JSON.stringify(payload))};
-        if (window.opener) {
-          window.opener.postMessage(message, ${JSON.stringify(targetOrigin)});
-          window.close();
+        var targetOrigin = ${JSON.stringify(targetOrigin)};
+        var cmsUrl = ${JSON.stringify(cmsUrl)};
+        var parentWindow = window.opener || (window.parent !== window ? window.parent : null);
+
+        if (parentWindow) {
+          var receiveMessage = function (event) {
+            parentWindow.postMessage(message, event.origin || targetOrigin);
+            window.removeEventListener("message", receiveMessage, false);
+            window.close();
+          };
+
+          window.addEventListener("message", receiveMessage, false);
+          parentWindow.postMessage("authorizing:${provider}", "*");
         } else {
-          document.body.textContent = "Authentication complete. You can close this window.";
+          document.body.textContent = "Authentication complete. Return to the CMS to continue.";
+          if (cmsUrl) {
+            setTimeout(function () {
+              window.location.replace(cmsUrl);
+            }, 1200);
+          }
         }
       })();
     </script>
@@ -131,7 +147,14 @@ export default {
         }
       }
 
-      return html(callbackHtml("github", { token: token.access_token, provider: "github" }, origin));
+      return html(
+        callbackHtml(
+          "github",
+          { token: token.access_token, provider: "github" },
+          origin,
+          `${origin}${cmsPath}`,
+        ),
+      );
     }
 
     if (url.pathname === "/" || url.pathname === "") {
