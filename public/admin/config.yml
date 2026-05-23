@@ -2,7 +2,7 @@ backend:
   name: github
   repo: Houraiji/Houraiji.github.io
   branch: main
-  base_url: https://houraiji-decap-oauth.example.workers.dev
+  base_url: https://houraiji-decap-oauth.3265908977.workers.dev
   auth_endpoint: auth
 
 site_domain: https://Houraiji.github.io
