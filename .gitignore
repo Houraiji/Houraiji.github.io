@@ -11,3 +11,8 @@ astro-dev.*.log
 .edge-shot/
 output/imagegen/
 tmp/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example

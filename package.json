@@ -6,17 +6,21 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build && node scripts/strip-local-admin.mjs",
-    "preview": "astro preview",
+    "preview": "npm run build && wrangler dev",
     "check": "astro check",
     "cms": "decap-server",
-    "admin:local": "node scripts/local-admin-server.mjs"
+    "admin:local": "node scripts/local-admin-server.mjs",
+    "deploy": "npm run build && wrangler deploy",
+    "cf-typegen": "wrangler types"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
+    "@astrojs/cloudflare": "12",
     "astro": "^5.8.0",
     "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "decap-server": "^3.7.0"
+    "decap-server": "^3.7.0",
+    "wrangler": "^4.94.0"
   }
 }
