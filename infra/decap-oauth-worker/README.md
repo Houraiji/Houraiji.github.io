@@ -31,7 +31,10 @@ Optional environment variables:
 ```text
 ALLOWED_ORIGIN=https://Houraiji.github.io
 CMS_PATH=/admin/
+ALLOWED_GITHUB_LOGIN=Houraiji
 ```
+
+`ALLOWED_GITHUB_LOGIN` is the hard gate for CMS access. When it is set, the worker exchanges the OAuth code, calls the GitHub `/user` API, and only allows the listed login(s) to complete the Decap sign-in flow. You can provide a single login such as `Houraiji` or a comma-separated allowlist if you ever need a backup maintainer.
 
 Deploy:
 
@@ -53,4 +56,4 @@ with your real Worker origin, for example:
 base_url: https://houraiji-decap-oauth.<your-subdomain>.workers.dev
 ```
 
-Only GitHub users with push permission to `Houraiji/Houraiji.github.io` can publish changes through the CMS.
+With `ALLOWED_GITHUB_LOGIN=Houraiji`, only that GitHub account can finish login to `/admin/`. Repo push permission is still required for publishing, so the worker allowlist and GitHub repo permissions protect different layers.

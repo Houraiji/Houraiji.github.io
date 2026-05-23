@@ -1,5 +1,6 @@
 const githubAuthorizeUrl = "https://github.com/login/oauth/authorize";
 const githubTokenUrl = "https://github.com/login/oauth/access_token";
+const githubUserUrl = "https://api.github.com/user";
 
 const html = (body, status = 200) =>
   new Response(body, {
@@ -18,6 +19,29 @@ const json = (payload, status = 200) =>
       "cache-control": "no-store",
     },
   });
+
+const getAllowedGitHubLogins = (env) =>
+  (env.ALLOWED_GITHUB_LOGIN || "")
+    .split(",")
+    .map((value) => value.trim().toLowerCase())
+    .filter(Boolean);
+
+const fetchGitHubViewer = async (accessToken) => {
+  const response = await fetch(githubUserUrl, {
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+      accept: "application/vnd.github+json",
+      "user-agent": "houraiji-decap-oauth-worker",
+    },
+  });
+
+  if (!response.ok) {
+    const details = await response.text();
+    throw new Error(`GitHub user lookup failed (${response.status}): ${details}`);
+  }
+
+  return response.json();
+};
 
 const callbackHtml = (provider, payload, targetOrigin) => `<!doctype html>
 <html>
@@ -46,6 +70,7 @@ export default {
     const origin = configuredSite.origin;
     const sitePath = configuredSite.pathname === "/" ? "" : configuredSite.pathname.replace(/\/$/, "");
     const cmsPath = env.CMS_PATH || `${sitePath}/admin/`;
+    const allowedGitHubLogins = getAllowedGitHubLogins(env);
 
     if (!clientId || !clientSecret) {
       return json({ error: "Missing GitHub OAuth worker secrets." }, 500);
@@ -85,6 +110,25 @@ export default {
       const token = await tokenResponse.json();
       if (!token.access_token) {
         return json({ error: "GitHub token exchange failed.", details: token }, 502);
+      }
+
+      if (allowedGitHubLogins.length > 0) {
+        try {
+          const viewer = await fetchGitHubViewer(token.access_token);
+          const viewerLogin = typeof viewer.login === "string" ? viewer.login.toLowerCase() : "";
+
+          if (!allowedGitHubLogins.includes(viewerLogin)) {
+            return html("This GitHub account is not allowed to access this CMS.", 403);
+          }
+        } catch (error) {
+          return json(
+            {
+              error: "GitHub user verification failed.",
+              details: error instanceof Error ? error.message : String(error),
+            },
+            502,
+          );
+        }
       }
 
       return html(callbackHtml("github", { token: token.access_token, provider: "github" }, origin));

@@ -128,8 +128,9 @@ Cloudflare Worker 只保存运行环境里的 secrets，不提交到仓库：
 - `GITHUB_CLIENT_SECRET`
 - `ALLOWED_ORIGIN=https://Houraiji.github.io`
 - `CMS_PATH=/admin/`
+- `ALLOWED_GITHUB_LOGIN=Houraiji`
 
-只有对 `Houraiji/Houraiji.github.io` 有 push 权限的 GitHub 账号才能通过 CMS 写内容。
+如果同时设置 `ALLOWED_GITHUB_LOGIN=Houraiji`，那么只有这个 GitHub 账号能完成 `/admin/` 登录；仓库 push 权限仍然决定它能不能真正提交内容。
 
 ## GitHub Pages 部署
 

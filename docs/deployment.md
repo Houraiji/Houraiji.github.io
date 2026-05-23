@@ -123,6 +123,7 @@ infra/decap-oauth-worker/
    GITHUB_CLIENT_SECRET
    ALLOWED_ORIGIN=https://Houraiji.github.io
    CMS_PATH=/admin/
+   ALLOWED_GITHUB_LOGIN=Houraiji
    ```
 
 5. 把 `public/admin/config.yml` 中的占位值替换为真实 Worker 域名：
@@ -136,7 +137,7 @@ infra/decap-oauth-worker/
      auth_endpoint: auth
    ```
 
-OAuth Worker 不存储内容，只完成 GitHub OAuth 登录和 token 回传。最终能否写入仓库仍取决于登录账号是否有 `Houraiji/Houraiji.github.io` 的 push 权限。
+OAuth Worker 不存储内容，只完成 GitHub OAuth 登录和 token 回传。设置 `ALLOWED_GITHUB_LOGIN=Houraiji` 后，只有该 GitHub 账号能完成 `/admin/` 登录；最终能否写入仓库仍取决于登录账号是否有 `Houraiji/Houraiji.github.io` 的 push 权限。
 
 ## 本地后台
 
